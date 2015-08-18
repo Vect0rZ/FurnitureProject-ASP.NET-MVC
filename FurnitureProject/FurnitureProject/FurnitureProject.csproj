@@ -43,6 +43,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -159,12 +161,40 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FurnitureFactoryModel\Customer.cs">
+      <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FurnitureFactoryModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\Order.cs">
+      <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\Product.cs">
+      <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FurnitureFactoryModel\ProductOrder.cs">
+      <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -173,12 +203,31 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DatabaseScripts\1. Create Database 18.08.2015.sql" />
+    <Content Include="Content\DatabaseScripts\2. Create Tables 18.08.2015.sql" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FurnitureFactoryModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
+      <LastGenOutput>FurnitureFactoryModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.edmx.diagram">
+      <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
+      <LastGenOutput>FurnitureFactoryModel.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -226,6 +275,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -236,6 +290,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
