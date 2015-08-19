@@ -50,6 +50,5 @@ C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin.Security.Google.xml
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin.Security.Twitter.xml
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.pdb

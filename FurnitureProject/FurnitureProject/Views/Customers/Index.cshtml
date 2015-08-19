@@ -1,27 +1,45 @@
-﻿@model IEnumerable<FurnitureProject.Models.FurnitureFactoryModel.Customer>
+﻿@using FurnitureProject.Common
+
+@model CustomerIndexVM
 
 @{
     ViewBag.Title = "Customers list";
+    int rowNumber = Model.PageNumber * Model.RowsPerPage;
+    Customer customer = new Customer();
 }
 
 <h2>Index</h2>
-
+<p>
+    Items per page: @Html.ActionLink("25", "Index", new { RowsPerPage = 25, PageNumber = 0  }) |
+                    @Html.ActionLink("50", "Index", new { RowsPerPage = 50, PageNumber = 0  }) |
+                    @Html.ActionLink("100", "Index", new { RowsPerPage = 100, PageNumber = 0 }) |
+</p>
+<p>
+    Page:
+    @for (int i = 0; i <= Model.NumberOfPages; i++ )
+    {
+        @Html.ActionLink((i + 1).ToString(), "Index", new { RowsPerPage = Model.RowsPerPage, PageNumber = i }) @: |
+    }
+</p>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <td>
+            <b>Row Number</b>
+        </td>
         <th>
-            @Html.DisplayNameFor(model => model.Bulstat)
+            @Html.DisplayNameFor(model => customer.Bulstat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MOL)
+            @Html.DisplayNameFor(model => customer.MOL)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => customer.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => customer.Address)
         </th>
         <th>
             Orders
@@ -29,8 +47,12 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Customers) {
+    rowNumber++;
     <tr>
+        <td>
+            @(rowNumber)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Bulstat)
         </td>

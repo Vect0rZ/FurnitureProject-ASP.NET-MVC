@@ -160,43 +160,44 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\FurnitureFactoryModel\Customer.cs">
+    <Compile Include="Models\AccountViewModels - Copy.cs" />
+    <Compile Include="Models\CustomerIndexVM.cs" />
+    <Compile Include="Common\Customer.cs">
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Context.cs">
+    <Compile Include="Common\FurnitureFactoryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FurnitureFactoryModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.cs">
+    <Compile Include="Common\FurnitureFactoryModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Designer.cs">
+    <Compile Include="Common\FurnitureFactoryModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\Order.cs">
+    <Compile Include="Common\Order.cs">
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\Product.cs">
+    <Compile Include="Common\Product.cs">
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FurnitureFactoryModel\ProductOrder.cs">
+    <Compile Include="Common\ProductOrder.cs">
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\IdentityModels - Copy.cs" />
+    <Compile Include="Models\ManageViewModels - Copy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -211,19 +212,19 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.edmx">
+    <EntityDeploy Include="Common\FurnitureFactoryModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FurnitureFactoryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.Context.tt">
+    <Content Include="Common\FurnitureFactoryModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
       <LastGenOutput>FurnitureFactoryModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.edmx.diagram">
+    <Content Include="Common\FurnitureFactoryModel.edmx.diagram">
       <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
     </Content>
-    <Content Include="Models\FurnitureFactoryModel\FurnitureFactoryModel.tt">
+    <Content Include="Common\FurnitureFactoryModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FurnitureFactoryModel.edmx</DependentUpon>
       <LastGenOutput>FurnitureFactoryModel.cs</LastGenOutput>
@@ -248,38 +249,16 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Customers\Create.cshtml" />
-    <Content Include="Views\Customers\Delete.cshtml" />
-    <Content Include="Views\Customers\Details.cshtml" />
-    <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

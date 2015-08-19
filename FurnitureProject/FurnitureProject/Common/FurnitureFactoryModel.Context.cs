@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FurnitureProject.Models.FurnitureFactoryModel
+namespace FurnitureProject.Common
 {
     using System;
     using System.Data.Entity;

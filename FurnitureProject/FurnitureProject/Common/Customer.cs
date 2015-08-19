@@ -7,25 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FurnitureProject.Models.FurnitureFactoryModel
+namespace FurnitureProject.Common
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Customer
     {
-        public Product()
+        public Customer()
         {
-            this.ProductOrders = new HashSet<ProductOrder>();
+            this.Orders = new HashSet<Order>();
         }
     
         public int ID { get; set; }
+        public int Bulstat { get; set; }
+        public string MOL { get; set; }
         public string Name { get; set; }
-        public float Price { get; set; }
-        public int Weight { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> Barcode { get; set; }
+        public string Address { get; set; }
     
-        public virtual ICollection<ProductOrder> ProductOrders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
