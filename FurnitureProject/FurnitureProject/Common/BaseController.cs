@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 
 using FurnitureProject.Common.Services;
+using FurnitureProject.Common.Services.OrderService;
 
 namespace FurnitureProject.Common
 {
     public class BaseController : Controller
     {
         private CustomerService customerService = null;
+        private OrderService orderService = null;
 
         public CustomerService CustomerService {
             get
@@ -21,6 +23,19 @@ namespace FurnitureProject.Common
                 }
                 return customerService;
             } 
+        }
+
+        public OrderService OrderService
+        {
+            get
+            {
+                if(orderService == null)
+                {
+                    orderService = new OrderService();
+                }
+
+                return orderService;
+            }
         }
 
     }

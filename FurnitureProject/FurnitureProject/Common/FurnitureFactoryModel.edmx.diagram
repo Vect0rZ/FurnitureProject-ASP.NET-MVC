@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="28d6b2fec61848579ad198e2017810ba" Name="Diagram1">
-        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Customer" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Order" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="FurnitureFactoryDBModel.ProductOrder" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Product" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Customer" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Order" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.ProductOrder" Width="1.5" PointX="5.375" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FurnitureFactoryDBModel.Product" Width="1.5" PointX="3.125" PointY="4.5" IsExpanded="true" />
         <AssociationConnector Association="FurnitureFactoryDBModel.FK_ORDERS_CUST_ID" ManuallyRouted="false" />
         <AssociationConnector Association="FurnitureFactoryDBModel.FK_PO_ORD_ID" ManuallyRouted="false" />
         <AssociationConnector Association="FurnitureFactoryDBModel.FK_PO_PROD_ID" ManuallyRouted="false" />

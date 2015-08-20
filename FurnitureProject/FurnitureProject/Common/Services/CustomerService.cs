@@ -34,6 +34,23 @@ namespace FurnitureProject.Common.Services
             return rowsPerPage;
         }
 
+        public Customer GetCustomerByID(int customerId)
+        {
+            var result = context.Customers.Find(customerId);
+
+            return result;
+        }
+        public bool CustomerExists(int customerID)
+        {
+            var query = context.Customers.Where(c => c.ID == customerID);
+
+            if(query.Count() > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
         public int GetNumberOfPages(int rowsPerPage)
         {
             return context.Customers.Count() / rowsPerPage;

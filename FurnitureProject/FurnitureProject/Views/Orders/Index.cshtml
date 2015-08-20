@@ -1,0 +1,45 @@
+﻿@model OrdersIndexVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders for customer: @Model.CustomerName</h2> 
+
+@if (Model.Orders.Count() <= 0)
+{
+    <center>
+        <h2 style="color: red">No orders available</h2>
+        <h4>
+            @Html.ActionLink("Go back to customers", "Index", "Customers", null, null)
+        </h4>
+    </center>
+}
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Date)*@
+            Order Date
+        </th>
+        <th>
+            Total price
+        </th>
+        <th>
+            Products
+        </th>
+    </tr>
+@foreach (var item in Model.Orders) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order.Date)
+        </td>
+        <td>
+            @item.TotalPrice
+        </td>
+        <td>
+            @Html.ActionLink("Products", "Products", new { OrderID = item.Order.ID})
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,33 @@
+﻿@using FurnitureProject.Common
+@using FurnitureProject.Models
+
+@model OrdersProductsVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <td> Product name</td>
+        <td> Quantity </td>
+        <td> Price </td>
+    </tr>
+
+@foreach(ProductOrder po in Model.ProductOrders)
+{
+    <tr>
+        <td>
+            @po.Product.Name
+        </td>
+        <td>
+            @po.Quantity.ToString()
+        </td>
+        <td>
+            @po.Product.Price.ToString()
+        </td>
+    </tr>
+}
+</table>
+
+

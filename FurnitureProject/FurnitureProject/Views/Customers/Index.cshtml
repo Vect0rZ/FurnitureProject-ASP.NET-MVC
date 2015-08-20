@@ -21,9 +21,6 @@
         @Html.ActionLink((i + 1).ToString(), "Index", new { RowsPerPage = Model.RowsPerPage, PageNumber = i }) @: |
     }
 </p>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <td>
@@ -44,7 +41,6 @@
         <th>
             Orders
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model.Customers) {
@@ -66,12 +62,7 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Orders", "Orders", new { id = item.ID })
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Orders", "Index", "Orders", new { CustomerID = item.ID }, null)
         </td>
     </tr>
 }
