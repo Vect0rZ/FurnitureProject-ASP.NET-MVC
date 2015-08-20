@@ -50,6 +50,15 @@ namespace FurnitureProject.Controllers
             return View(model);
         }
 
+        public ActionResult SearchOrderIndex()
+        {
+            return View();
+        }
+        public ActionResult SearchOrder(OrdersSearchOrderVM model)
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);

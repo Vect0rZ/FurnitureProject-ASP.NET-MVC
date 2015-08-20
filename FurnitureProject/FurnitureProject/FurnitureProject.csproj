@@ -163,6 +163,7 @@
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Common\Services\OrderService\OrderService.cs" />
+    <Compile Include="Common\Services\OrderService\OrderWithProducts.cs" />
     <Compile Include="Common\Services\OrderService\OrderWithTotalPrice.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\ManageViewModels - Copy.cs" />
     <Compile Include="Models\OrdersIndexVM.cs" />
     <Compile Include="Models\OrdersProductsVM.cs" />
+    <Compile Include="Models\OrdersSearchOrderVM.cs" />
     <Compile Include="Models\ProductsIndexVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -271,6 +273,8 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Products.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Orders\SearchOrderIndex.cshtml" />
+    <Content Include="Views\Orders\SearchOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -279,7 +283,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

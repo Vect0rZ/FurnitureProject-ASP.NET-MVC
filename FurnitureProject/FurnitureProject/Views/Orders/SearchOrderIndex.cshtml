@@ -1,0 +1,11 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Search order by ID</h2>
+@using(Html.BeginForm("SearchOrder", "Orders", FormMethod.Get))
+{
+    @Html.TextBox("id")
+    <input type="submit" value="Search Order" />
+}
+
+
