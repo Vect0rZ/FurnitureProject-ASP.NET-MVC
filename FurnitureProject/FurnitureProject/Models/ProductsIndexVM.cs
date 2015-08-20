@@ -13,5 +13,11 @@ namespace FurnitureProject.Models
         public string SearchString { get; set; }
         public float Price { get; set; }
         public bool isLessThan { get; set; }
+        public int? OrderID { get; set; }
+
+        public ProductsIndexVM()
+        {
+            SearchString = string.Empty;
+        }
     }
 }

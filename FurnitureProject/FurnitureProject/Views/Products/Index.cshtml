@@ -9,12 +9,6 @@
 {
     <p>
         Product name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
-}
-@using (Html.BeginForm("Index", "Products", FormMethod.Get))
-{
-    <p>
         Price: @Html.TextBox("Price") Less than? @Html.CheckBoxFor(m => m.isLessThan)
         <input type="submit" value="Search" />
     </p>
