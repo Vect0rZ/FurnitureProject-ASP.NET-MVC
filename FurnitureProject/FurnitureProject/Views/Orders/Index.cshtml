@@ -32,12 +32,15 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Order.Date)
+            @*@Html.DisplayFor(modelItem => item.Key.Date)*@
         </td>
         <td>
             @item.TotalPrice
+            @*@item.Value*@
         </td>
         <td>
-            @Html.ActionLink("Products", "Products", new { OrderID = item.Order.ID})
+            @Html.ActionLink("Products", "Index", "Products", new { OrderID = item.Order.ID }, null)
+            @*@Html.ActionLink("Products", "Index", "Products", new { OrderID = item.Key.ID }, null)*@
         </td>
     </tr>
 }

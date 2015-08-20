@@ -19,13 +19,31 @@ namespace FurnitureProject.Common.Services
             return context.Products;
         }
 
+        public IQueryable<Product> GetAllById(int productID)
+        {
+            var resultProduts = GetAll().Where(p => p.ID == productID);
+
+            return resultProduts;
+        }
+
         public IQueryable<Product> GetProductsWithName(string name)
         {
             var resultProducts = context.Products.Where(p => p.Name.Contains(name));
 
             return resultProducts;
         }
+        public IQueryable<Product> GetProductsFiltered(string searchString, float price, bool isLess)
+        {
+            if(String.IsNullOrEmpty(searchString) == true ||
+                price <= 0)
+            {
+                return GetAll();
+            }
 
+            var resultProducts = GetAll().Where(p => p.Name.Contains(searchString)).Where(p => p.Price < price);
+
+            return resultProducts;
+        }
         public List<Product> GetProductsWithPrice(List<Product> toUpdate, float price, bool isLess)
         {
             var resultProducts = toUpdate.AsQueryable();

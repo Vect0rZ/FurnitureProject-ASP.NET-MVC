@@ -54,18 +54,14 @@ namespace FurnitureProject.Common.Services.OrderService
 
         public Dictionary<Order, float> GetOrdersWithTotalPrice(List<Order> orders)
         {
-            IQueryable<Product> products;
+            
             Dictionary<Order, float> resultDictionary = new Dictionary<Order, float>();
 
             foreach (Order o in orders)
             {
-                products = GetAllProducts(o.ID);
-                float priceSum = products.ToList().Sum(p => p.Price);
+                float priceSum = o.ProductOrders.Sum(po => po.Quantity * po.Product.Price);
                 resultDictionary.Add(o, priceSum);
             }
-
-            var asd = context.Orders.Where(o => o.CustomerID == 0)
-                                    .ToList();
 
             return resultDictionary;
         }
@@ -76,7 +72,7 @@ namespace FurnitureProject.Common.Services.OrderService
                 context.Orders.Where(o => o.CustomerID == customerId)
                                    .Select(o => new { Order = o, Price = o.ProductOrders.Sum(po => po.Quantity * po.Product.Price) })
                                    .ToList()
-                                   .Select(r => new OrderWithTotalPrice() { Order = r.Order, TotalPrice = r.Price })
+                                   .Select(r => new OrderWithTotalPrice() { Order = r.Order, TotalPrice = r.Price})
                                    .ToList();
 
             return result;

@@ -17,16 +17,25 @@ namespace FurnitureProject.Controllers
         // GET: Products
         public ActionResult Index(ProductsIndexVM model)
         {
-            if(String.IsNullOrEmpty(model.SearchString) == true)
+            //if(String.IsNullOrEmpty(model.SearchString) == true)
+            //{
+            //    model.SearchString = "";
+            //}
+            
+            //model.Products = ProductService.GetProductsWithName(model.SearchString).ToList();
+            //if (model.Price > 0)
+            //{
+            //    model.Products = ProductService.GetProductsWithPrice(model.Products, model.Price, model.isLessThan);
+            //}
+
+            var query = ProductService.GetProductsFiltered(model.SearchString, model.Price, model.isLessThan);
+
+            if(model.OrderID != null)
             {
-                model.SearchString = "";
+                query = OrderService.GetAllProductOrders((int)model.OrderID).Select(po => po.Product);
             }
             
-            model.Products = ProductService.GetProductsWithName(model.SearchString).ToList();
-            if (model.Price > 0)
-            {
-                model.Products = ProductService.GetProductsWithPrice(model.Products, model.Price, model.isLessThan);
-            }
+            model.Products = query.ToList();
 
             return View(model);
         }
