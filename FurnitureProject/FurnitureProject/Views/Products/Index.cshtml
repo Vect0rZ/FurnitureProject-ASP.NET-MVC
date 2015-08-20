@@ -1,0 +1,61 @@
+﻿@model ProductsIndexVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        Product name: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        Price: @Html.TextBox("Price") Less than? @Html.CheckBoxFor(m => m.isLessThan)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Weight
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Barcode
+        </th>
+    </tr>
+
+@foreach (var item in Model.Products) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Barcode)
+        </td>
+    </tr>
+}
+
+</table>

@@ -31,3 +31,12 @@ textarea {
     color: white;
     font-size: 2em;
 }
+
+.input
+{
+    display: inline;
+}
+input
+{
+    display: inline;
+}

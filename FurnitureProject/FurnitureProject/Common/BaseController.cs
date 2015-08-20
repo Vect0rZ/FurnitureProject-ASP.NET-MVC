@@ -13,6 +13,7 @@ namespace FurnitureProject.Common
     {
         private CustomerService customerService = null;
         private OrderService orderService = null;
+        private ProductService productService = null;
 
         public CustomerService CustomerService {
             get
@@ -35,6 +36,19 @@ namespace FurnitureProject.Common
                 }
 
                 return orderService;
+            }
+        }
+
+        public ProductService ProductService
+        {
+            get
+            {
+                if(productService == null)
+                {
+                    productService = new ProductService();
+                }
+
+                return productService;
             }
         }
 
