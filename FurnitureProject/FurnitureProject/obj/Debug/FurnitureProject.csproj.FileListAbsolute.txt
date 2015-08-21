@@ -52,4 +52,7 @@ C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.pdb
+C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Ado.dll
+C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Core.dll
+C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.EF6.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache

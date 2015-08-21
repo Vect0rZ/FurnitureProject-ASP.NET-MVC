@@ -39,6 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Glimpse.Ado">
+      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.EF6">
+      <HintPath>..\packages\Glimpse.EF6.1.6.5\lib\net45\Glimpse.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -163,7 +172,6 @@
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Common\Services\OrderService\OrderService.cs" />
-    <Compile Include="Common\Services\OrderService\OrderWithProducts.cs" />
     <Compile Include="Common\Services\OrderService\OrderWithTotalPrice.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
     <Compile Include="Common\Services\ProductWithQuantity.cs" />
@@ -275,7 +283,6 @@
     <Content Include="Views\Orders\Products.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Orders\SearchOrderIndex.cshtml" />
-    <Content Include="Views\Orders\SearchOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,11 +1,76 @@
-﻿@{
+﻿@model OrdersSearchOrderVM
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Search order by ID</h2>
-@using(Html.BeginForm("SearchOrder", "Orders", FormMethod.Get))
+@using(Html.BeginForm("SearchOrderIndex", "Orders", FormMethod.Get))
 {
     @Html.TextBox("OrderID")
     <input type="submit" value="Search Order" />
 }
 
+<br />
 
+<table class="table">
+    <tr>
+        <td colspan="2">
+            <b>MOL</b>
+        </td>
+        <td colspan="2">
+            <b>Order Date</b>
+        </td>
+        <td>
+            <b>Total order price</b>
+        </td>
+    </tr>
+@if (Model.Customer != null)
+{
+    <tr>
+        <td colspan="2">
+            @Model.Customer.MOL
+        </td>
+        <td colspan="2">
+            @Model.Order.Order.Date
+        </td>
+        <td>
+            @Model.Order.TotalPrice
+        </td>
+    </tr>
+}
+    <tr>
+        <td colspan="5">
+            <center>
+                <p style="font-size: 2em">Ordered items</p>
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Item name</b>
+        </td>
+        <td>
+            <b>Item price</b>
+        </td>
+        <td>
+            <b>Item weight</b>
+        </td>
+        <td>
+            <b>Quantity</b>
+        </td>
+        <td>
+            <b>Total Price</b>
+        </td>
+    </tr>
+@foreach (var item in Model.Products)
+{
+    <tr>
+        <td>@item.Product.Name</td>
+        <td>@item.Product.Price</td>
+        <td>@item.Product.Weight</td>
+        <td>@item.Quantity</td>
+        <td>@item.TotalPrice</td>
+    </tr>
+}
+</table>
+ 

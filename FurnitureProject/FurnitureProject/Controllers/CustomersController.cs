@@ -16,7 +16,6 @@ namespace FurnitureProject.Controllers
     {
         private FurnitureDBContext db = new FurnitureDBContext();
 
-        // GET: Customers
         public ActionResult Index(CustomerIndexVM model)
         {
             model.PageNumber = CustomerService.ValidatePageNumber(model.PageNumber);
@@ -27,13 +26,5 @@ namespace FurnitureProject.Controllers
             return View("Index", model);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

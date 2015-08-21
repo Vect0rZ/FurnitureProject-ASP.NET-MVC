@@ -15,12 +15,6 @@ namespace FurnitureProject.Common.Services.OrderService
             context = new FurnitureDBContext();
             context.Database.Log = (s) => Debug.WriteLine(s);
         }
-
-        public IQueryable<Product> GetAllProducts()
-        {
-            return context.Products;
-        }
-
         public IQueryable<Order> GetAll()
         {
             return context.Orders;
@@ -32,16 +26,10 @@ namespace FurnitureProject.Common.Services.OrderService
 
             return resultOrder;
         }
+
         public IQueryable<Order> GetAllCustomerOrders(int customerID)
         {
             var resultQuery = context.Orders.Where(o => o.CustomerID == customerID);
-
-            return resultQuery;
-        }
-
-        public IQueryable<ProductOrder> GetAllProductOrders(int id)
-        {
-            var resultQuery = context.ProductOrders.Where(po => po.OrderID == id);
 
             return resultQuery;
         }
@@ -53,25 +41,16 @@ namespace FurnitureProject.Common.Services.OrderService
             return resultQuery;
         }
 
-        public List<ProductWithQuantity> GetAllProducts(int orderID)
+        public IQueryable<ProductOrder> GetAllProductOrders(int id)
         {
-            return context.ProductOrders.Where(po => po.OrderID == orderID)
-           /*.Select(po => po.Product)*/.ToList().Select(r => new ProductWithQuantity() { Product = r.Product, Quantity = r.Quantity }).ToList();
+            var resultQuery = GetAllProductOrders().Where(po => po.OrderID == id);
 
-            //foreach(ProductOrder po in ordersQuery.ToList())
-            //{
-
-            //    //yield return po.Product;
-            //    resultProducts.Add(po.Product);
-            //}
-
-            //return resultProducts;
+            return resultQuery;
         }
 
         public Dictionary<Order, float> GetOrdersWithTotalPrice(List<Order> orders)
         {
-            
-            Dictionary<Order, float> resultDictionary = new Dictionary<Order, float>();
+            var resultDictionary = new Dictionary<Order, float>();
 
             foreach (Order o in orders)
             {
@@ -82,10 +61,15 @@ namespace FurnitureProject.Common.Services.OrderService
             return resultDictionary;
         }
         
-        public List<OrderWithTotalPrice> GetOrdersWithTotalPriceProper(int customerId)
+        public List<OrderWithTotalPrice> GetOrdersWithTotalPriceProper(int? customerId)
         {
-            List<OrderWithTotalPrice> result =
-                context.Orders.Where(o => o.CustomerID == customerId)
+            List<OrderWithTotalPrice> result;
+            //TRANSLATION:
+            /*
+             * IF Customer Id is null then continue with the query, 
+             * if not FILTER o.CustemerID == customerID and continue onwards
+             * */
+            result = context.Orders.Where(o => customerId == null || o.CustomerID == customerId)
                                    .Select(o => new { Order = o, Price = o.ProductOrders.Sum(po => po.Quantity * po.Product.Price) })
                                    .ToList()
                                    .Select(r => new OrderWithTotalPrice() { Order = r.Order, TotalPrice = r.Price})
@@ -94,16 +78,9 @@ namespace FurnitureProject.Common.Services.OrderService
             return result;
         }
 
-        public float TotalPrice(List<Product> products)
+        public OrderWithTotalPrice GetOrderWithTotalPrice(int customerId, int? orderId)
         {
-            float sumResult = 0;
-
-            foreach(Product p in products)
-            {
-                sumResult += p.Price;
-            }
-
-            return sumResult;
+            return GetOrdersWithTotalPriceProper(customerId).FirstOrDefault(o => o.Order.ID == orderId.Value);
         }
     }
 }

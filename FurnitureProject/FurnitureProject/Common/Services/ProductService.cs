@@ -38,18 +38,28 @@ namespace FurnitureProject.Common.Services
             return context.ProductOrders.Where(po => po.OrderID == orderID);
         }
 
-        public IQueryable<Product> GetProductsFiltered(string searchString, float price, bool isLess)
+        public IQueryable<Product> GetProductsFiltered(string searchString, float? price, bool isLess)
         {
-            if(String.IsNullOrEmpty(searchString) == true ||
-                price <= 0)
+            var resultQuery = GetAll();
+
+            if(String.IsNullOrEmpty(searchString) == false)
             {
-                return GetAll();
+                resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
             }
 
-            var resultProducts = GetAll().Where(p => p.Name.Contains(searchString)).Where(p => p.Price < price);
+            if (price != null && price.Value > 0 && isLess == false)
+            {
+                resultQuery = resultQuery.Where(p => p.Price > price);
+            }
 
-            return resultProducts;
+            if(price != null && price.Value > 0 && isLess == true)
+            {
+                resultQuery = resultQuery.Where(p => p.Price < price);
+            }
+
+            return resultQuery;
         }
+
         public List<Product> GetProductsWithPrice(List<Product> toUpdate, float price, bool isLess)
         {
             var resultProducts = toUpdate.AsQueryable();
@@ -64,6 +74,15 @@ namespace FurnitureProject.Common.Services
             }
 
             return resultProducts.ToList();
+        }
+
+        public List<ProductWithQuantity> GetAllProducts(int? orderID = null)
+        {
+            return context.ProductOrders.Where(po => orderID == null || po.OrderID == orderID.Value)
+                                                .Select(o => new { Product = o.Product, Quantity = o.Quantity })
+                                                .ToList()
+                                                .Select(r => new ProductWithQuantity() { Product = r.Product, Quantity = r.Quantity, TotalPrice = r.Product.Price * r.Quantity })
+                                                .ToList();
         }
     }
 }

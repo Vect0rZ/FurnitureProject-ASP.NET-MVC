@@ -16,57 +16,38 @@ namespace FurnitureProject.Controllers
 {
     public class OrdersController : BaseController
     {
-        public FurnitureDBContext context = new FurnitureDBContext();
-        // GET: Orders
+
         public ActionResult Index(OrdersIndexVM model)
         {
-            model.CustomerName = CustomerService.GetCustomerByID(model.CustomerID).MOL;
-            if(CustomerService.CustomerExists(model.CustomerID) == false)
+            Customer customer = CustomerService.GetCustomerByID(model.CustomerID);
+            model.Orders = OrderService.GetOrdersWithTotalPriceProper(model.CustomerID);
+
+            if(customer == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            //model.Orders = OrderService.GetOrdersWithTotalPrice(OrderService.GetAllCustomerOrders(model.CustomerID).ToList());
-            //var query = from order in context.Orders
-            //            where order.CustomerID == model.CustomerID
-            //            select new { Order = order, Price = order.ProductOrders.Sum(po => po.Quantity * po.Product.Price) };  
-            //var list = query.ToList();
-
-            model.Orders = OrderService.GetOrdersWithTotalPriceProper(model.CustomerID);
+            model.CustomerName = customer.MOL;
 
             return View(model);
         }
 
-        public ActionResult Products(OrdersProductsVM model)
-        {
-            if(model.OrderID < 0)
-            {
-                return View();
-            }
-
-            model.ProductOrders = OrderService.GetAllProductOrders(model.OrderID).ToList();
-            model.Products = OrderService.GetAllProducts(model.OrderID);
-
-            return View(model);
-        }
 
         public ActionResult SearchOrderIndex(OrdersSearchOrderVM model)
         {
-            return View();
-        }
-
-        public ActionResult SearchOrder(OrdersSearchOrderVM model)
-        {
-            model.Order.Order = OrderService.GetWithId(model.OrderID);
-            model.Order.Customer = model.Order.Order.Customer;
-            model.Order.Products = OrderService.GetAllProducts(model.OrderID).ToList();
+            if(model.OrderID != null)
+            {
+                model.Order.Order = OrderService.GetWithId(model.OrderID.Value);
+                if(model.Order.Order != null)
+                {
+                    model.Customer = model.Order.Order.Customer;
+                    model.Products = ProductService.GetAllProducts(model.OrderID).ToList();
+                    model.Order.TotalPrice = OrderService.GetOrderWithTotalPrice(model.Customer.ID, model.OrderID).TotalPrice;
+                }
+            }
 
             return View(model);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
     }
 }
