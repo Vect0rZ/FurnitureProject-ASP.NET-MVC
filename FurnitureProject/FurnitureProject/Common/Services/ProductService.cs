@@ -42,20 +42,26 @@ namespace FurnitureProject.Common.Services
         {
             var resultQuery = GetAll();
 
-            if(String.IsNullOrEmpty(searchString) == false)
-            {
-                resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
-            }
+            resultQuery = resultQuery.Where(p => String.IsNullOrEmpty(searchString) == false ||
+                                                 p.Name.Contains(searchString))
+                                     .Where(p => (price != null && price.Value > 0 && !isLess) == false ||
+                                                 p.Price > price)
+                                     .Where(p => (price != null && price.Value > 0 && isLess == true) == false ||
+                                                 p.Price < price);
+            //if(String.IsNullOrEmpty(searchString) == false)
+            //{
+            //    resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
+            //}
 
-            if (price != null && price.Value > 0 && isLess == false)
-            {
-                resultQuery = resultQuery.Where(p => p.Price > price);
-            }
+            //if (price != null && price.Value > 0 && isLess == false)
+            //{
+            //    resultQuery = resultQuery.Where(p => p.Price > price);
+            //}
 
-            if(price != null && price.Value > 0 && isLess == true)
-            {
-                resultQuery = resultQuery.Where(p => p.Price < price);
-            }
+            //if(price != null && price.Value > 0 && isLess == true)
+            //{
+            //    resultQuery = resultQuery.Where(p => p.Price < price);
+            //}
 
             return resultQuery;
         }
@@ -79,9 +85,14 @@ namespace FurnitureProject.Common.Services
         public List<ProductWithQuantity> GetAllProducts(int? orderID = null)
         {
             return context.ProductOrders.Where(po => orderID == null || po.OrderID == orderID.Value)
-                                                .Select(o => new { Product = o.Product, Quantity = o.Quantity })
+                                                .Select(o => new { Product = o.Product, Quantity = o.Quantity, Order = o.Order })
                                                 .ToList()
-                                                .Select(r => new ProductWithQuantity() { Product = r.Product, Quantity = r.Quantity, TotalPrice = r.Product.Price * r.Quantity })
+                                                .Select(r => new ProductWithQuantity()
+                                                {
+                                                    Product = r.Product
+                                                    ,Quantity = r.Quantity
+                                                    ,TotalPrice = r.Product.Price * r.Quantity
+                                                })
                                                 .ToList();
         }
     }

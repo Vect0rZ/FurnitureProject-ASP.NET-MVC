@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
+using FurnitureProject.Common.Services.OrderService;
+
 namespace FurnitureProject.Common.Services.OrderService
 {
     public class OrderService
@@ -24,6 +26,31 @@ namespace FurnitureProject.Common.Services.OrderService
         {
             Order resultOrder = GetAll().FirstOrDefault(p => p.ID == id);
 
+            return resultOrder;
+        }
+
+        public OrderWithTotalPrice GetWithIdAndTotalPrice(int id)
+        {
+            var resultOrder = GetAll().Where(o => o.ID == id)
+                                .Select(p => new
+                                {
+                                    Order = p
+                                    ,
+                                    TotalPrice = p.ProductOrders.Sum(po => po.Quantity * po.Product.ID)
+                                    ,
+                                    Customer = p.Customer
+                                    ,
+                                    Products = p.ProductOrders.Select(po => po.Product)
+                                })
+                                .ToList()
+                                .Select(r => new OrderWithTotalPrice()
+                                {
+                                    Order = r.Order
+                                    ,
+                                    TotalPrice = r.TotalPrice
+                                    ,
+                                    Customer = r.Customer
+                                }).FirstOrDefault();
             return resultOrder;
         }
 

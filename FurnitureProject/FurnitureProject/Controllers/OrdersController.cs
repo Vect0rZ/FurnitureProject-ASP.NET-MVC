@@ -37,12 +37,10 @@ namespace FurnitureProject.Controllers
         {
             if(model.OrderID != null)
             {
-                model.Order.Order = OrderService.GetWithId(model.OrderID.Value);
-                if(model.Order.Order != null)
+                model.Order = OrderService.GetWithIdAndTotalPrice(model.OrderID.Value);
+                if(model.Order != null)
                 {
-                    model.Customer = model.Order.Order.Customer;
                     model.Products = ProductService.GetAllProducts(model.OrderID).ToList();
-                    model.Order.TotalPrice = OrderService.GetOrderWithTotalPrice(model.Customer.ID, model.OrderID).TotalPrice;
                 }
             }
 

@@ -24,11 +24,11 @@
             <b>Total order price</b>
         </td>
     </tr>
-@if (Model.Customer != null)
+@if (Model.Order.Customer != null)
 {
     <tr>
         <td colspan="2">
-            @Model.Customer.MOL
+            @Model.Order.Customer.MOL
         </td>
         <td colspan="2">
             @Model.Order.Order.Date
