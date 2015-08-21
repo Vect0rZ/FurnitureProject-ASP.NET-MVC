@@ -29,7 +29,7 @@ namespace FurnitureProject.Common.Services.OrderService
             return resultQuery;
         }
 
-        public IQueryable<ProductOrder> GetAllProductOrders(int id)
+        public IQueryable<ProductOrder> GetAllProductOrders(int? id)
         {
             var resultQuery = GetAllProductOrders().Where(po => po.OrderID == id);
 

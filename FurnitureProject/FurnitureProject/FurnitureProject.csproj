@@ -165,6 +165,7 @@
     <Compile Include="Common\Services\OrderService\OrderService.cs" />
     <Compile Include="Common\Services\OrderService\OrderWithTotalPrice.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
+    <Compile Include="Common\Services\ProductWithSold.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
