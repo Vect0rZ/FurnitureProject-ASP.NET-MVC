@@ -32,6 +32,12 @@ namespace FurnitureProject.Common.Services
 
             return resultProducts;
         }
+
+        public IQueryable<ProductOrder> GetProductOrders(int orderID)
+        {
+            return context.ProductOrders.Where(po => po.OrderID == orderID);
+        }
+
         public IQueryable<Product> GetProductsFiltered(string searchString, float price, bool isLess)
         {
             if(String.IsNullOrEmpty(searchString) == true ||

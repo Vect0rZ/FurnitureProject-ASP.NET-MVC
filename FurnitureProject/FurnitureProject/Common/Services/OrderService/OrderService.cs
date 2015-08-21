@@ -16,6 +16,22 @@ namespace FurnitureProject.Common.Services.OrderService
             context.Database.Log = (s) => Debug.WriteLine(s);
         }
 
+        public IQueryable<Product> GetAllProducts()
+        {
+            return context.Products;
+        }
+
+        public IQueryable<Order> GetAll()
+        {
+            return context.Orders;
+        }
+
+        public Order GetWithId(int id)
+        {
+            Order resultOrder = GetAll().FirstOrDefault(p => p.ID == id);
+
+            return resultOrder;
+        }
         public IQueryable<Order> GetAllCustomerOrders(int customerID)
         {
             var resultQuery = context.Orders.Where(o => o.CustomerID == customerID);
@@ -37,10 +53,10 @@ namespace FurnitureProject.Common.Services.OrderService
             return resultQuery;
         }
 
-        public IQueryable<Product> GetAllProducts(int orderID)
+        public List<ProductWithQuantity> GetAllProducts(int orderID)
         {
             return context.ProductOrders.Where(po => po.OrderID == orderID)
-                                        .Select(po => po.Product);
+           /*.Select(po => po.Product)*/.ToList().Select(r => new ProductWithQuantity() { Product = r.Product, Quantity = r.Quantity }).ToList();
 
             //foreach(ProductOrder po in ordersQuery.ToList())
             //{
@@ -76,11 +92,6 @@ namespace FurnitureProject.Common.Services.OrderService
                                    .ToList();
 
             return result;
-        }
-
-        public IQueryable<Product> GetAllProducts()
-        {
-            return context.Products;
         }
 
         public float TotalPrice(List<Product> products)

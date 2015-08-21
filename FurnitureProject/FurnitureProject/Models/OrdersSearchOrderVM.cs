@@ -10,7 +10,7 @@ namespace FurnitureProject.Models
 {
     public class OrdersSearchOrderVM
     {
-        public List<OrderWithProducts> Orders;
+        public OrderWithProducts Order = new OrderWithProducts();
         public int OrderID { get; set; }
     }
 }

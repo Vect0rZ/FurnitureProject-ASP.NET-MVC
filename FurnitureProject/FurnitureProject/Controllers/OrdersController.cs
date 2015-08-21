@@ -45,18 +45,23 @@ namespace FurnitureProject.Controllers
             }
 
             model.ProductOrders = OrderService.GetAllProductOrders(model.OrderID).ToList();
-            model.Products = OrderService.GetAllProducts(model.OrderID).ToList();
+            model.Products = OrderService.GetAllProducts(model.OrderID);
 
             return View(model);
         }
 
-        public ActionResult SearchOrderIndex()
+        public ActionResult SearchOrderIndex(OrdersSearchOrderVM model)
         {
             return View();
         }
+
         public ActionResult SearchOrder(OrdersSearchOrderVM model)
         {
-            return View();
+            model.Order.Order = OrderService.GetWithId(model.OrderID);
+            model.Order.Customer = model.Order.Order.Customer;
+            model.Order.Products = OrderService.GetAllProducts(model.OrderID).ToList();
+
+            return View(model);
         }
 
         protected override void Dispose(bool disposing)
