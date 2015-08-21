@@ -9,7 +9,8 @@
 {
     <p>
         Product name: @Html.TextBox("SearchString")
-        Price: @Html.TextBox("Price") Less than? @Html.CheckBoxFor(m => m.isLessThan)
+        Price: @Html.TextBoxFor(model => Model.Price) 
+        Less than? @Html.CheckBox("IsLessThan")
         <input type="submit" value="Search" />
     </p>
 }

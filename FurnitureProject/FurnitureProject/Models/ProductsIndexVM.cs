@@ -11,8 +11,8 @@ namespace FurnitureProject.Models
     {
         public List<Product> Products { get; set; }
         public string SearchString { get; set; }
-        public float Price { get; set; }
-        public bool isLessThan { get; set; }
+        public float? Price { get; set; }
+        public bool IsLessThan { get; set; }
         public int? OrderID { get; set; }
 
         public ProductsIndexVM()

@@ -16,6 +16,12 @@ namespace FurnitureProject.Common.Services.OrderService
             context.Database.Log = (s) => Debug.WriteLine(s);
         }
 
+        public IQueryable<Product> GetAllProducts(int orderID)
+        {
+            return GetAllProductOrders().Where(po => po.OrderID == orderID)
+                                        .Select(po => po.Product);
+        }
+
         public IQueryable<Order> GetAllCustomerOrders(int customerID)
         {
             var resultQuery = context.Orders.Where(o => o.CustomerID == customerID);
@@ -25,7 +31,7 @@ namespace FurnitureProject.Common.Services.OrderService
 
         public IQueryable<ProductOrder> GetAllProductOrders(int id)
         {
-            var resultQuery = context.ProductOrders.Where(po => po.OrderID == id);
+            var resultQuery = GetAllProductOrders().Where(po => po.OrderID == id);
 
             return resultQuery;
         }
@@ -37,25 +43,9 @@ namespace FurnitureProject.Common.Services.OrderService
             return resultQuery;
         }
 
-        public IQueryable<Product> GetAllProducts(int orderID)
-        {
-            return context.ProductOrders.Where(po => po.OrderID == orderID)
-                                        .Select(po => po.Product);
-
-            //foreach(ProductOrder po in ordersQuery.ToList())
-            //{
-
-            //    //yield return po.Product;
-            //    resultProducts.Add(po.Product);
-            //}
-
-            //return resultProducts;
-        }
-
         public Dictionary<Order, float> GetOrdersWithTotalPrice(List<Order> orders)
         {
-            
-            Dictionary<Order, float> resultDictionary = new Dictionary<Order, float>();
+            var resultDictionary = new Dictionary<Order, float>();
 
             foreach (Order o in orders)
             {
@@ -78,21 +68,5 @@ namespace FurnitureProject.Common.Services.OrderService
             return result;
         }
 
-        public IQueryable<Product> GetAllProducts()
-        {
-            return context.Products;
-        }
-
-        public float TotalPrice(List<Product> products)
-        {
-            float sumResult = 0;
-
-            foreach(Product p in products)
-            {
-                sumResult += p.Price;
-            }
-
-            return sumResult;
-        }
     }
 }

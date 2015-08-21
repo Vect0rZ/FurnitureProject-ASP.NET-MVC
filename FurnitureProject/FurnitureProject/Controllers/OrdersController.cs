@@ -16,22 +16,17 @@ namespace FurnitureProject.Controllers
 {
     public class OrdersController : BaseController
     {
-        public FurnitureDBContext context = new FurnitureDBContext();
-        // GET: Orders
+
         public ActionResult Index(OrdersIndexVM model)
         {
-            model.CustomerName = CustomerService.GetCustomerByID(model.CustomerID).MOL;
-            if(CustomerService.CustomerExists(model.CustomerID) == false)
+            var customer = CustomerService.GetCustomerByID(model.CustomerID);
+
+            if(customer == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            //model.Orders = OrderService.GetOrdersWithTotalPrice(OrderService.GetAllCustomerOrders(model.CustomerID).ToList());
-            //var query = from order in context.Orders
-            //            where order.CustomerID == model.CustomerID
-            //            select new { Order = order, Price = order.ProductOrders.Sum(po => po.Quantity * po.Product.Price) };  
-            //var list = query.ToList();
-
+            model.CustomerName = customer.MOL;
             model.Orders = OrderService.GetOrdersWithTotalPriceProper(model.CustomerID);
 
             return View(model);
@@ -48,11 +43,6 @@ namespace FurnitureProject.Controllers
             model.Products = OrderService.GetAllProducts(model.OrderID).ToList();
 
             return View(model);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
         }
     }
 }

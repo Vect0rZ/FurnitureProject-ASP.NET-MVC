@@ -32,17 +32,21 @@ namespace FurnitureProject.Common.Services
 
             return resultProducts;
         }
-        public IQueryable<Product> GetProductsFiltered(string searchString, float price, bool isLess)
+        public IQueryable<Product> GetProductsFiltered(string searchString, float? price, bool isLess)
         {
-            if(String.IsNullOrEmpty(searchString) == true ||
-                price <= 0)
+            var resultQuery = GetAll();
+
+            if(String.IsNullOrEmpty(searchString) == false)
             {
-                return GetAll();
+                resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
             }
 
-            var resultProducts = GetAll().Where(p => p.Name.Contains(searchString)).Where(p => p.Price < price);
+            if(price != null && price.Value > 0)
+            {
+                resultQuery = resultQuery.Where(p => p.Price < price);
+            }
 
-            return resultProducts;
+            return resultQuery;
         }
         public List<Product> GetProductsWithPrice(List<Product> toUpdate, float price, bool isLess)
         {
