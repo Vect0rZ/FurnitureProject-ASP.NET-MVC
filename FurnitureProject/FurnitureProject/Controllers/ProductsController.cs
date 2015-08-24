@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using FurnitureProject.Common;
 
 using FurnitureProject.Models;
-using FurnitureProject.Common.Services;
 
 namespace FurnitureProject.Controllers
 {
@@ -19,14 +18,13 @@ namespace FurnitureProject.Controllers
         public ActionResult Index(ProductsIndexVM model)
         {
             IQueryable<Product> query = ProductService.GetProductsFiltered(model.SearchString, model.Price, model.IsLessThan);
-            List<ProductWithSold> query2 = null;
 
             if(model.OrderID.HasValue)
             {
-                query2 = ProductService.GetAllProductsWithSold(model.OrderID);               
+                query = OrderService.GetAllProductOrders(model.OrderID.Value).Select(po => po.Product);
             }
-
-            model.Products = query2;
+            
+            model.Products = query.ToList();
 
             return View(model);
         }

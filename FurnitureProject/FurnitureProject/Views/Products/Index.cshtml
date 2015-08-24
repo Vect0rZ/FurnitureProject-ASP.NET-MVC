@@ -31,30 +31,24 @@
         <th>
             Barcode
         </th>
-        <th>
-            Sold last month
-        </th>
     </tr>
 
 @foreach (var item in Model.Products) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Name)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Price)
+            @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Weight)
+            @Html.DisplayFor(modelItem => item.Weight)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Description)
+            @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Barcode)
-        </td>
-        <td>
-            @item.soldLastMonth
+            @Html.DisplayFor(modelItem => item.Barcode)
         </td>
     </tr>
 }

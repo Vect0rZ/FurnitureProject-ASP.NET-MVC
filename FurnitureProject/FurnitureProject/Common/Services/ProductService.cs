@@ -63,24 +63,5 @@ namespace FurnitureProject.Common.Services
 
             return resultProducts.ToList();
         }
-
-        public List<ProductWithSold> GetAllProductsWithSold(int? orderId)
-        {
-            return context.ProductOrders.Where(po => po.OrderID == orderId)
-                    .Select(po => new
-                    {
-                        Product = po.Product
-                        ,
-                        Order = po.Order
-                        ,
-                        Quantity = po.Quantity
-                        ,
-                        soldLastMonth = po.Order.ProductOrders.Sum(po1 => po1.Quantity)
-                    })
-                    .Where(r => r.Order.Date > new DateTime(2000, 1, 1))
-                    .ToList()
-                    .Select(r => new ProductWithSold() { Product = r.Product, soldLastMonth = r.soldLastMonth })
-                    .ToList();
-        }
     }
 }
