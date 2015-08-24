@@ -178,8 +178,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\BaseController.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
+    <Compile Include="Common\Services\OrderService\OrderAndProducts.cs" />
     <Compile Include="Common\Services\OrderService\OrderService.cs" />
     <Compile Include="Common\Services\OrderService\OrderWithTotalPrice.cs" />
+    <Compile Include="Common\Services\ProductInfo.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
     <Compile Include="Common\Services\ProductWithQuantity.cs" />
     <Compile Include="Controllers\CustomersController.cs" />

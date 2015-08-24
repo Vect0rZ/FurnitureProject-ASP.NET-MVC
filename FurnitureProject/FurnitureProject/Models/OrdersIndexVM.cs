@@ -10,7 +10,6 @@ namespace FurnitureProject.Models
 {
     public class OrdersIndexVM
     {
-        //public Dictionary<Order, float> Orders = new Dictionary<Order, float>();
         public List<OrderWithTotalPrice> Orders { get; set; }
         public string CustomerName { get; set; }
         public int? CustomerID { get; set; }

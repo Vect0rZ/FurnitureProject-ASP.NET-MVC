@@ -62,7 +62,6 @@ namespace FurnitureProject.Common.Services
             return context.Customers.Count() / rowsPerPage;
         }
 
-        //Should probably be in repository
         public List<Customer> GetAllOnPage(int pageNumber, int rowsPerPage)
         {
             var customers = context.Customers.OrderBy(c => c.MOL);

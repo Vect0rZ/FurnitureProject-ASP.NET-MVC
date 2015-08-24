@@ -24,17 +24,17 @@
             <b>Total order price</b>
         </td>
     </tr>
-@if (Model.Order.Customer != null)
+@if (Model.OrderAndProducts.Order.Customer != null)
 {
     <tr>
         <td colspan="2">
-            @Model.Order.Customer.MOL
+            @Model.OrderAndProducts.Order.Customer.MOL
         </td>
         <td colspan="2">
-            @Model.Order.Order.Date
+            @Model.OrderAndProducts.Order.Order.Date
         </td>
         <td>
-            @Model.Order.TotalPrice
+            @Model.OrderAndProducts.Order.TotalPrice
         </td>
     </tr>
 }
@@ -62,7 +62,7 @@
             <b>Total Price</b>
         </td>
     </tr>
-@foreach (var item in Model.Products)
+@foreach (var item in Model.OrderAndProducts.Products)
 {
     <tr>
         <td>@item.Product.Name</td>

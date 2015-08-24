@@ -42,12 +42,12 @@ namespace FurnitureProject.Common.Services
         {
             var resultQuery = GetAll();
 
-            resultQuery = resultQuery.Where(p => String.IsNullOrEmpty(searchString) == false ||
+            resultQuery = resultQuery.Where(p => String.IsNullOrEmpty(searchString) == true ||
                                                  p.Name.Contains(searchString))
-                                     .Where(p => (price != null && price.Value > 0 && !isLess) == false ||
-                                                 p.Price > price)
-                                     .Where(p => (price != null && price.Value > 0 && isLess == true) == false ||
-                                                 p.Price < price);
+                                     .Where(p => (price == null || price.Value <= 0) 
+                                                || (isLess == true && p.Price < price)
+                                                || (isLess == false && p.Price >= price));
+
             //if(String.IsNullOrEmpty(searchString) == false)
             //{
             //    resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
@@ -64,6 +64,22 @@ namespace FurnitureProject.Common.Services
             //}
 
             return resultQuery;
+        }
+
+        public List<ProductInfo> GetProductsInfo(string searchString, float? price, bool isLess)
+        {
+            var resultQuery = GetProductsFiltered(searchString, price, isLess);
+            var lastMonth = DateTime.Now.AddYears(-10); // AddMonths(-1)
+
+            return resultQuery.Select(p => new { Product = p,
+                                                 Quantity = p.ProductOrders.Where(po => po.Order.Date > lastMonth)
+                                                                           .Sum(po => po.Quantity)})
+                               .Select(pi => new ProductInfo()
+                                        {
+                                            Product = pi.Product,
+                                            SoldLastMonth = pi.Quantity
+                                        })
+                               .ToList();
         }
 
         public List<Product> GetProductsWithPrice(List<Product> toUpdate, float price, bool isLess)

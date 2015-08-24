@@ -36,7 +36,7 @@ namespace FurnitureProject.Common.Services.OrderService
                                 {
                                     Order = p
                                     ,
-                                    TotalPrice = p.ProductOrders.Sum(po => po.Quantity * po.Product.ID)
+                                    TotalPrice = p.ProductOrders.Sum(po => po.Quantity * po.Product.Price)
                                     ,
                                     Customer = p.Customer
                                     ,
@@ -51,6 +51,38 @@ namespace FurnitureProject.Common.Services.OrderService
                                     ,
                                     Customer = r.Customer
                                 }).FirstOrDefault();
+            return resultOrder;
+        }
+
+        public OrderAndProducts GetOrderAndProducts(int? id)
+        {
+            var resultOrder = GetAll().Where(o => o.ID == id)
+                                .Select(o => new
+                                {
+                                    Order = o,
+                                    Customer = o.Customer,
+                                    Products = o.ProductOrders.Select(po => new { po.Product, po.Quantity })
+                                })
+                                .ToList()
+                                .Select(r => new OrderAndProducts()
+                                {
+
+                                    Order = new OrderWithTotalPrice()
+                                            {
+                                                Order = r.Order,
+                                                Customer = r.Customer,
+                                                TotalPrice = r.Products.Sum(p => p.Product.Price * p.Quantity)
+                                            },
+                                    Products = r.Products.Select(pwq => new ProductWithQuantity()
+                                                                {
+                                                                    Product = pwq.Product,
+                                                                    Quantity = pwq.Quantity,
+                                                                    TotalPrice = pwq.Product.Price * pwq.Quantity
+                                                                })
+                                                         .ToList()
+                                })
+                                .FirstOrDefault();
+
             return resultOrder;
         }
 
@@ -87,7 +119,7 @@ namespace FurnitureProject.Common.Services.OrderService
 
             return resultDictionary;
         }
-        
+
         public List<OrderWithTotalPrice> GetOrdersWithTotalPriceProper(int? customerId)
         {
             List<OrderWithTotalPrice> result;
@@ -99,7 +131,7 @@ namespace FurnitureProject.Common.Services.OrderService
             result = context.Orders.Where(o => customerId == null || o.CustomerID == customerId)
                                    .Select(o => new { Order = o, Price = o.ProductOrders.Sum(po => po.Quantity * po.Product.Price) })
                                    .ToList()
-                                   .Select(r => new OrderWithTotalPrice() { Order = r.Order, TotalPrice = r.Price})
+                                   .Select(r => new OrderWithTotalPrice() { Order = r.Order, TotalPrice = r.Price })
                                    .ToList();
 
             return result;

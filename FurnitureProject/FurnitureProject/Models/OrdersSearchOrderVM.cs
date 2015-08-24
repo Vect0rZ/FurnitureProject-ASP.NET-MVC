@@ -12,14 +12,11 @@ namespace FurnitureProject.Models
 {
     public class OrdersSearchOrderVM
     {
-        public OrderWithTotalPrice Order { get; set; }
-        public List<ProductWithQuantity> Products { get; set; }
+        public OrderAndProducts OrderAndProducts { get; set; }
         public int? OrderID { get; set; }
-
         public OrdersSearchOrderVM()
         {
-            Products = new List<ProductWithQuantity>();
-            Order = new OrderWithTotalPrice();
+            OrderAndProducts = new OrderAndProducts();
         }
     }
 }
