@@ -14,6 +14,7 @@ namespace FurnitureProject.Common
         private CustomerService customerService = null;
         private OrderService orderService = null;
         private ProductService productService = null;
+        private ProductHistoryService productHistoryService = null;
 
         public CustomerService CustomerService {
             get
@@ -49,6 +50,19 @@ namespace FurnitureProject.Common
                 }
 
                 return productService;
+            }
+        }
+
+        public ProductHistoryService ProductHistoryService
+        {
+            get
+            {
+                if(productHistoryService == null)
+                {
+                    productHistoryService = new ProductHistoryService();
+                }
+
+                return productHistoryService;
             }
         }
 

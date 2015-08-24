@@ -19,5 +19,10 @@ namespace FurnitureProject.Controllers
             return View(model);
         }
 
+        public ActionResult CustomerProducts()
+        {
+            return View();
+        }
+
     }
 }

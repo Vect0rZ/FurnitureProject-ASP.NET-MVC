@@ -53,7 +53,6 @@ C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Microsoft.Owin
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.pdb
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Core.dll
-C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.AspNet.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Mvc5.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Ado.dll

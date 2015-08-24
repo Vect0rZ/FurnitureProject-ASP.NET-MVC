@@ -177,16 +177,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Services\CustomerProducts.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Common\Services\OrderService\OrderAndProducts.cs" />
     <Compile Include="Common\Services\OrderService\OrderService.cs" />
     <Compile Include="Common\Services\OrderService\OrderWithTotalPrice.cs" />
+    <Compile Include="Common\Services\ProductHistoryService.cs" />
     <Compile Include="Common\Services\ProductInfo.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
     <Compile Include="Common\Services\ProductWithQuantity.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductHistoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,6 +229,7 @@
     <Compile Include="Models\OrdersIndexVM.cs" />
     <Compile Include="Models\OrdersProductsVM.cs" />
     <Compile Include="Models\OrdersSearchOrderVM.cs" />
+    <Compile Include="Models\ProductHistoryIndexVM.cs" />
     <Compile Include="Models\ProductsIndexVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -293,6 +297,7 @@
     <Content Include="Views\Orders\Products.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Orders\SearchOrderIndex.cshtml" />
+    <Content Include="Views\ProductHistory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

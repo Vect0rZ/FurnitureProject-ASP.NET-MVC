@@ -1,0 +1,47 @@
+﻿@model ProductHistoryIndexVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Search a customer</h3>
+@using(Html.BeginForm("Index", "ProductHistory", FormMethod.Get))
+{
+    @Html.TextBox("SearchString");
+    <input type="submit" value="Search" />
+}
+
+@if(Model.ErrorMessage != null)
+{
+    <h1>@Model.ErrorMessage</h1>
+}
+else
+{
+    <h2>Customer: @Model.CustomerProducts.Customer.MOL</h2>
+    @ShowProducts()
+}
+@helper ShowProducts()
+{
+    <table class="table">
+        <tr>
+            <td>Date</td>
+            <td>Product name</td>
+            <td>Quantity</td>
+        </tr>
+        @foreach (var item in Model.CustomerProducts.Products)
+        {
+            <tr>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.Product.Name
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+
