@@ -10,6 +10,7 @@ using FurnitureProject.Common.Services;
 
 namespace FurnitureProject.Controllers
 {
+    [Authorize]
     public class ProductHistoryController : BaseController
     {
         // GET: ProductHistory

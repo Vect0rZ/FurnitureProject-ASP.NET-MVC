@@ -13,13 +13,14 @@
                     @Html.ActionLink("50", "Index", new { RowsPerPage = 50, PageNumber = 0  }) |
                     @Html.ActionLink("100", "Index", new { RowsPerPage = 100, PageNumber = 0 }) |
 </p>
-<p>
-    Page:
-    @for (int i = 0; i <= Model.NumberOfPages; i++ )
-    {
-        @Html.ActionLink((i + 1).ToString(), "Index", new { RowsPerPage = Model.RowsPerPage, PageNumber = i }) @: |
-    }
-</p>
+<ul class="pagination pagination-sm">
+@for (int i = 0; i <= Model.NumberOfPages; i++ )
+{
+     <li>
+        @Html.ActionLink((i + 1).ToString(), "Index", new { RowsPerPage = Model.RowsPerPage, PageNumber = i })
+     </li>
+}
+</ul>
 <table class="table">
     <tr>
         <td>
@@ -42,9 +43,10 @@
         </th>
     </tr>
 
-@foreach (var item in Model.Customers) {
+@foreach (var item in Model.Customers)
+{
     rowNumber++;
-    <tr>
+    <tr class="trlink">
         <td>
             @(rowNumber)
         </td>
