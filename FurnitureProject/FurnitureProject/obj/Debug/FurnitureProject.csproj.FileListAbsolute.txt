@@ -57,3 +57,4 @@ C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.AspNet
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Mvc5.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Ado.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.EF6.dll
+C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache

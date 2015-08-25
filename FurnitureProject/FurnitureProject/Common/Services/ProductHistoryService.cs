@@ -16,54 +16,6 @@ namespace FurnitureProject.Common.Services
 
         public OperationResult<CustomerProducts> GetProductsForCustomer(string searchString)
         {
-            //if (String.IsNullOrEmpty(searchString))
-            //{
-            //    return new CustomerProducts()
-            //    {
-            //        ErrorMessage = "Please specifiy search criteria"
-            //    };
-            //}
-
-            //var customerCount = context.Customers.Where(c => c.MOL.Contains(searchString)).Count();
-
-            //if(customerCount > 1)
-            //{
-            //    return new CustomerProducts()
-            //    {
-            //        ErrorMessage = "More than one user with this name exists. Please specify different search criteria"
-            //    };
-            //}
-            
-
-            //var resultProducts = context.Orders.Where(o => o.Customer.MOL.Contains(searchString))
-            //                                   .Select(o => new
-            //                                      {
-            //                                          Order = o,
-            //                                          ProductOrders = o.ProductOrders,
-            //                                          Customer = o.Customer
-            //                                      })
-            //                                      .Select(p => new CustomerProducts()
-            //                                      {
-            //                                          Products = p.ProductOrders.Select(po => new ProductWithQuantity()
-            //                                          {
-            //                                              Product = po.Product,
-            //                                              Quantity = po.Quantity,
-            //                                              Date = p.Order.Date
-            //                                          }).ToList(),
-            //                                          Customer = p.Customer,
-            //                                      }).FirstOrDefault();
-
-            //if(resultProducts == null)
-            //{
-            //    return new CustomerProducts()
-            //    {
-            //        ErrorMessage = "The customer has no orders"
-            //    };
-            //}
-
-            //return resultProducts;
-
-
             if (searchString.IsEmpty())
             {
                 return new OperationResult<CustomerProducts>("Please specifiy search criteria");
@@ -140,9 +92,6 @@ namespace FurnitureProject.Common.Services
                 Success = true;
             }
         }
-
-
-
     }
 
     public static class Extensions

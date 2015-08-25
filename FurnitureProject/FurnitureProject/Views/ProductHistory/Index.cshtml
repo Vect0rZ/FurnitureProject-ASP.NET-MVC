@@ -4,12 +4,13 @@
 }
 
 <h3>Search a customer</h3>
-@using(Html.BeginForm("Index", "ProductHistory", FormMethod.Get))
+@*@using(Html.BeginForm("Index", "ProductHistory", FormMethod.Get))
 {
     @Html.TextBox("SearchString");
     <input type="submit" value="Search" />
-}
-
+}*@
+<input type="text" id="searchBox" />
+<input type="submit" id="submitButton" value="Search" />
 @if(Model.ErrorMessage != null)
 {
     <h1>@Model.ErrorMessage</h1>
@@ -19,6 +20,7 @@ else
     <h2>Customer: @Model.CustomerProducts.Customer.MOL</h2>
     @ShowProducts()
 }
+
 @helper ShowProducts()
 {
     <table class="table">
@@ -43,5 +45,31 @@ else
         }
     </table>
 }
+
+@section JQuery
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submitButton").click(function () {
+                $.ajax({
+                    url: '/ProductHistory/Index/',
+                    data:
+                        {
+                            SearchString: $("#searchBox").val()
+                        },
+                    datatype: 'text',
+                    type: "GET",
+                    success:
+                        function(result)
+                        {
+                            $("body").html(result)
+                        }
+                })
+            });
+        });
+    </script>
+}
+
+
 
 
