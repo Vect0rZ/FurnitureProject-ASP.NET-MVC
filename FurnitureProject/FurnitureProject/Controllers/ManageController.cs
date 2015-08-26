@@ -72,16 +72,7 @@ namespace FurnitureProject.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
-            //var user = UserManager.GetUser(userId);
-            ////Avatar uploaded
-            //bool success = false;
-            //string imagePath = string.Empty;
-            //if (file != null && file.ContentLength > 0)
-            //{
-            //   imagePath = new FileManager().Save(file);
-            //   success = UserManager.ChangeUserAvatar(User.Identity.GetUserId(), imagePath);
-            //}
-            ////
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -89,7 +80,7 @@ namespace FurnitureProject.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
-                ImagePath = UserManager.GetUser(userId).ImagePath
+                ImagePath = UserManager.GetUserImagePath(userId)
             };
             return View(model);
         }
@@ -99,8 +90,15 @@ namespace FurnitureProject.Controllers
         {
             var userId = User.Identity.GetUserId();
             var user = UserManager.GetUser(userId);
+            string currentImagePath = UserManager.GetUserImagePath(userId);
             bool success = false;
             string imagePath = string.Empty;
+
+            if(String.IsNullOrEmpty(currentImagePath) == false)
+            {
+                FileManager fileManager = new FileManager();
+                fileManager.DeleteFile(currentImagePath);
+            }
 
             if (file != null && file.ContentLength > 0)
             {
@@ -113,11 +111,11 @@ namespace FurnitureProject.Controllers
 
                 success = UserManager.ChangeUserAvatar(User.Identity.GetUserId(), imagePath);
             }
+
             if(success)
             {
                 return RedirectToAction("Index", new { Message = ManageMessageId.AvatarChangeSuccess});
             }
-
             //Error!
             return View();
         }

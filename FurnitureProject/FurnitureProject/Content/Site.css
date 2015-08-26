@@ -31,7 +31,7 @@ textarea {
     color: white;
     font-size: 2em;
 }
-input[type="file"]
+.hidden
 {
     display: none;
 }
@@ -46,6 +46,19 @@ input[type="file"]
     width: 115px;
     vertical-align: middle;
 }
+.fileChange
+{
+    position: relative;
+    border: 1px solid #000000;
+    border-radius: 9px;
+    display: table-cell;
+    cursor: pointer;
+    background-color: #a7a7a7;
+    width: 115px;
+    text-align: right;
+    color: white;
+    padding: 2px;
+}
 .input
 {
     display: inline;
@@ -53,4 +66,11 @@ input[type="file"]
 input
 {
     display: inline;
+}
+#ImageChange
+{
+    padding: 0;
+    margin: 0;
+    max-width: 50px;
+    min-width: 20px;
 }

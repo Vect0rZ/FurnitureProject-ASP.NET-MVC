@@ -32,6 +32,26 @@ namespace FurnitureProject.Common.Managers
             return path;
         }
 
+        public bool DeleteFile(string filePath)
+        {
+            bool result = false;
+
+            if(String.IsNullOrWhiteSpace(filePath) == false)
+            {
+                try
+                {
+                    System.IO.File.Delete(filePath);
+                    result = true;
+                }
+                catch
+                {
+                    result = false;
+                }
+            }
+            
+            return result;
+        }
+
         private bool ValidateExtension(string extension)
         {
             for(int i = 0; i < AllowedExtensions.Length; i++)
@@ -45,5 +65,6 @@ namespace FurnitureProject.Common.Managers
             return false;
         }
 
+        
     }
 }

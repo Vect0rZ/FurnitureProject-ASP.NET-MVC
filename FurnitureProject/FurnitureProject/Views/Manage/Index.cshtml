@@ -13,31 +13,43 @@
             $("#firstImageUploadFile").change(function () {
                 $("#firstImageUpload").submit();
             });
+
+            $("#ImageChangeFile").change(function () {
+                $("#ImageChange").submit();
+            });
         })
     </script>
 }
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+<p class="text-success" style="font-size: 2em;">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
     <hr />
     <h2>Avatar</h2>
-    <div class="thumbnail" style="max-width: 115px; min-height: 150px;">
+    <div class="thumbnail" style="max-width: 150px; min-height: 150px;">
         @if (String.IsNullOrEmpty(Model.ImagePath))
         {
             <form action="" method="post" enctype="multipart/form-data" id="firstImageUpload">
                 <center>
                     <label class="fileUpload">
-                        <input type="file" name="file" id="firstImageUploadFile" />
+                        <input type="file" class="hidden" name="file" id="firstImageUploadFile" />
                         <span class="glyphicon glyphicon-upload" style="font-size: 3em; color: #208fb2;"></span>
                     </label>
                 </center>
             </form>
+
         }
         else
         {
-            <img src="@Url.Content("~/Content/Images/" + System.IO.Path.GetFileName(Model.ImagePath))"/>
-            @*<img src="@Url.Content("~/App_Data/Andro.png")" />*@
+            <img src="@Url.Content("~/Content/Images/" + System.IO.Path.GetFileName(Model.ImagePath))" />
+            <form action="" method="post" enctype="multipart/form-data" id="ImageChange">
+                <ceter>
+                    <label class="fileChange">
+                        Change
+                        <input type="file" class="hidden" name="file" id="ImageChangeFile" />
+                    </label>
+                </ceter>
+            </form>
         }
     </div>
     <dl class="dl-horizontal">

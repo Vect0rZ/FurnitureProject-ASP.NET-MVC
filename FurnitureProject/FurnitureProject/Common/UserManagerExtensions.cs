@@ -34,5 +34,22 @@ namespace FurnitureProject.Common
             }
         }
 
+        public static string GetUserImagePath(this ApplicationUserManager UserManager, string UserID)
+        {
+            string imagePath = string.Empty;
+            var user = UserManager.GetUser(UserID);
+
+            if (user != null)
+            {
+                imagePath = user.ImagePath;
+            }
+
+            if(imagePath == null)
+            {
+                imagePath = string.Empty;
+            }
+
+            return imagePath;
+        }
     }
 }
