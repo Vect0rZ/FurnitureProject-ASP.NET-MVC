@@ -16,13 +16,15 @@ namespace FurnitureProject.Common
         private ProductService productService = null;
         private ProductHistoryService productHistoryService = null;
 
-        public CustomerService CustomerService {
+        public CustomerService CustomerService 
+        {
             get
             {
                 if(customerService == null)
                 {
                     customerService = new CustomerService();
                 }
+
                 return customerService;
             } 
         }
@@ -65,6 +67,5 @@ namespace FurnitureProject.Common
                 return productHistoryService;
             }
         }
-
     }
 }

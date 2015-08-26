@@ -48,11 +48,12 @@ namespace FurnitureProject.Common.Services
 
         public Customer GetCustomerByID(int? customerId)
         {
-            if(customerId == null)
+            Customer result = null; ;
+
+            if(customerId != null)
             {
-                return null;
+                result = context.Customers.Find(customerId);
             }
-            var result = context.Customers.Find(customerId);
 
             return result;
         }

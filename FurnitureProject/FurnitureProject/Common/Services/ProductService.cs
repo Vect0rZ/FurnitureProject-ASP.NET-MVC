@@ -5,15 +5,28 @@ using System.Web;
 
 namespace FurnitureProject.Common.Services
 {
+    /// <summary>
+    /// A service that manages products.
+    /// </summary>
     public class ProductService
     {
+        #region Fields
+
         private FurnitureDBContext context;
+
+        #endregion
+
+        #region Public Methods
 
         public ProductService()
         {
             context = new FurnitureDBContext();
         }
 
+        /// <summary>
+        /// Retrieves all products from the database./>
+        /// </summary>
+        /// <returns>Returns collection of <see cref="Product"/> objects.</returns>
         public IQueryable<Product> GetAll()
         {
             return context.Products;
@@ -48,6 +61,7 @@ namespace FurnitureProject.Common.Services
                                                 || (isLess == true && p.Price < price)
                                                 || (isLess == false && p.Price >= price));
 
+            #region we ceep this commented out instead of deleting it because... (ML: replace the text of the region with some reason)
             //if(String.IsNullOrEmpty(searchString) == false)
             //{
             //    resultQuery = resultQuery.Where(p => p.Name.Contains(searchString));
@@ -62,6 +76,7 @@ namespace FurnitureProject.Common.Services
             //{
             //    resultQuery = resultQuery.Where(p => p.Price < price);
             //}
+            #endregion
 
             return resultQuery;
         }
@@ -111,5 +126,7 @@ namespace FurnitureProject.Common.Services
                                                 })
                                                 .ToList();
         }
+
+        #endregion
     }
 }

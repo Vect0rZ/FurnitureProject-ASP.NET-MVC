@@ -14,8 +14,6 @@ namespace FurnitureProject.Controllers
 {
     public class CustomersController : BaseController
     {
-        private FurnitureDBContext db = new FurnitureDBContext();
-
         public ActionResult Index(CustomerIndexVM model)
         {
             model.PageNumber = CustomerService.ValidatePageNumber(model.PageNumber);
