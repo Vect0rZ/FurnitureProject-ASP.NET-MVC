@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 
 using FurnitureProject.Models;
+using FurnitureProject.Common;
+using FurnitureProject.Common.Managers;
+
 
 namespace FurnitureProject.Controllers
 {
@@ -54,29 +57,68 @@ namespace FurnitureProject.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        [HttpGet]
+        public async Task<ActionResult> Index(ManageMessageId? message, HttpPostedFileBase file)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.AvatarFormatError ? "Invalid avatar format"
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.AvatarChangeSuccess ? "Your avatar was successfuly set"
                 : "";
 
             var userId = User.Identity.GetUserId();
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                ImagePath = UserManager.GetUserImagePath(userId)
             };
             return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+            var userId = User.Identity.GetUserId();
+            var user = UserManager.GetUser(userId);
+            string currentImagePath = UserManager.GetUserImagePath(userId);
+            bool success = false;
+            string imagePath = string.Empty;
+
+            if(String.IsNullOrEmpty(currentImagePath) == false)
+            {
+                FileManager fileManager = new FileManager();
+                fileManager.DeleteFile(currentImagePath);
+            }
+
+            if (file != null && file.ContentLength > 0)
+            {
+                imagePath = new FileManager().Save(file);
+
+                if(String.IsNullOrEmpty(imagePath))
+                {
+                    return RedirectToAction("Index", new { Message = ManageMessageId.AvatarFormatError });
+                }
+
+                success = UserManager.ChangeUserAvatar(User.Identity.GetUserId(), imagePath);
+            }
+
+            if(success)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.AvatarChangeSuccess});
+            }
+            //Error!
+            return View();
+        }
         //
         // POST: /Manage/RemoveLogin
         [HttpPost]
@@ -276,6 +318,28 @@ namespace FurnitureProject.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetAvatar(IndexViewModel model, HttpPostedFileBase file)
+        {
+            bool success = false;
+            if(file.ContentLength > 0 && file != null)
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                string imagePath = new FileManager().Save(file);
+                model.ImagePath = imagePath;
+
+                success = UserManager.ChangeUserAvatar(User.Identity.GetUserId(), imagePath);
+            }
+
+            if(success == false)
+            {
+                return new HttpNotFoundResult();
+            }
+
+            return View("Index", model);
+        }
         //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
@@ -381,6 +445,8 @@ namespace FurnitureProject.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            AvatarChangeSuccess,
+            AvatarFormatError,
             Error
         }
 

@@ -5,15 +5,36 @@ using System.Web;
 
 namespace FurnitureProject.Common.Services
 {
+    /// <summary>
+    /// A service that manages history of sold products.
+    /// </summary>
     public class ProductHistoryService
     {
-        FurnitureDBContext context;
+        #region Fields
 
+        private FurnitureDBContext context;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates new instance of the Product History service, using the real furniture DB context.
+        /// </summary>
         public ProductHistoryService()
         {
             context = new FurnitureDBContext();
         }
 
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Retrieves list of customer products by given search criteria.
+        /// </summary>
+        /// <param name="searchString">Search filter criteria.</param>
+        /// <returns>Returns OperationResult containing <see cref="CustomerProducts"/> if any. </returns>
         public OperationResult<CustomerProducts> GetProductsForCustomer(string searchString)
         {
             if (searchString.IsEmpty())
@@ -55,6 +76,11 @@ namespace FurnitureProject.Common.Services
             });
         }
 
+        #endregion
+
+        #region OperationResult helpers
+        //ML: it's better to put this class separately, maybe in "Helper" folder
+
         public class OperationResult
         {
             public bool Success { get; set; }
@@ -65,6 +91,7 @@ namespace FurnitureProject.Common.Services
                 Success = true;
             }
 
+            //ML: it doesn't becomes clear, that this constructor should be used in case of an error only. 
             public OperationResult(string error)
             {
                 Success = false;
@@ -92,12 +119,15 @@ namespace FurnitureProject.Common.Services
                 Success = true;
             }
         }
+
+        #endregion
     }
 
     public static class Extensions
     {
         public static bool IsEmpty(this string str)
         {
+            //ML: better use IsNullOrWhitespace, in this case you don't need to trim it. Otherwise the user will enter one space and this function will return false.
             return String.IsNullOrEmpty(str);
         }
        
