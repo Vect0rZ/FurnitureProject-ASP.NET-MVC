@@ -37,7 +37,7 @@ else
         </tr>
         @foreach (var item in Model.Orders)
         {
-            <tr id="trlink">
+            <tr class="trlink">
                 <td>
                     @Html.ActionLink(item.Order.ID.ToString(), "SearchOrderIndex", "Orders", new { OrderID = item.Order.ID }, null)
                 </td>
@@ -55,17 +55,5 @@ else
 
 @section JQuery
 {
-    <script type="text/javascript">
-        $(document).ready(function () {
-              $("#trlink").hover(function () {
-                  $(this).css("background-color", "#3c3c3c");
-                  $(this).css("color", "white");
-                  $(this).css("cursor", "pointer");
-              },
-              function () {
-                  $(this).css("background-color", "white");
-                  $(this).css("color", "black");
-              });
-        });
-    </script>
+
 }

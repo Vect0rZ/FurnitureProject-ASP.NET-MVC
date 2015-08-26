@@ -4,12 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Search order by ID</h2>
-@using(Html.BeginForm("SearchOrderIndex", "Orders", FormMethod.Get))
+@using (Html.BeginForm("SearchOrderIndex", "Orders", FormMethod.Get))
 {
-    @Html.TextBox("OrderID")
-    <input type="submit" value="Search Order" />
+    <div class="form-group">
+        @Html.TextBox("OrderID")
+        <button type="submit" class="btn btn-info" value="Search Order">
+            <span class="glyphicon glyphicon-search"> Search </span>
+        </button>
+    </div>
 }
-
 <br />
 
 <table class="table">
@@ -64,7 +67,7 @@
     </tr>
 @foreach (var item in Model.OrderAndProducts.Products)
 {
-    <tr>
+    <tr class="trlink">
         <td>@item.Product.Name</td>
         <td>@item.Product.Price</td>
         <td>@item.Product.Weight</td>
