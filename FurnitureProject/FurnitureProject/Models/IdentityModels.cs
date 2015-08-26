@@ -16,6 +16,8 @@ namespace FurnitureProject.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string ImagePath { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
