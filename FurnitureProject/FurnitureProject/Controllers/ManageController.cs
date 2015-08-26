@@ -82,6 +82,7 @@ namespace FurnitureProject.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
                 ImagePath = UserManager.GetUserImagePath(userId)
             };
+
             return View(model);
         }
 
@@ -118,6 +119,26 @@ namespace FurnitureProject.Controllers
             }
             //Error!
             return View();
+        }
+
+        public ActionResult RemoveAvatar()
+        {
+            var userId = User.Identity.GetUserId();
+            string imagePath = UserManager.GetUserImagePath(userId);
+
+            if (String.IsNullOrWhiteSpace(imagePath) == false)
+            {
+                FileManager fileManager = new FileManager();
+                fileManager.DeleteFile(imagePath);
+            }
+
+            if(UserManager.RemoveAvatar(userId) == true)
+            {
+                return RedirectToAction("Index", new { Message = ManageMessageId.AvatarRemoveSuccess });
+            }
+            
+            //Error!
+            return RedirectToAction("Index");
         }
         //
         // POST: /Manage/RemoveLogin
@@ -446,6 +467,7 @@ namespace FurnitureProject.Controllers
             RemoveLoginSuccess,
             RemovePhoneSuccess,
             AvatarChangeSuccess,
+            AvatarRemoveSuccess,
             AvatarFormatError,
             Error
         }

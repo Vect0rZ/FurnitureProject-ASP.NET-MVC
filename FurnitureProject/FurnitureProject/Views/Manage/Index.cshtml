@@ -37,7 +37,6 @@
                     </label>
                 </center>
             </form>
-
         }
         else
         {
@@ -47,6 +46,14 @@
                     <label class="fileChange">
                         Change
                         <input type="file" class="hidden" name="file" id="ImageChangeFile" />
+                    </label>
+                </ceter>
+            </form>
+            <form action="@Url.Action("RemoveAvatar")" method="post" enctype="multipart/form-data" id="RemoveAvatarForm">
+                <ceter>
+                    <label class="fileChange">
+                        Remove
+                        <input type="submit" class="hidden" id="RemoveAvatar" />
                     </label>
                 </ceter>
             </form>
