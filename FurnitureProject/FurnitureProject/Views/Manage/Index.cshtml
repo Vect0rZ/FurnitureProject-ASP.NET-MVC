@@ -5,10 +5,41 @@
 
 <h2>@ViewBag.Title.</h2>
 
+@section JQuery
+{
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $("#firstImageUploadFile").change(function () {
+                $("#firstImageUpload").submit();
+            });
+        })
+    </script>
+}
+
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
     <hr />
+    <h2>Avatar</h2>
+    <div class="thumbnail" style="max-width: 115px; min-height: 150px;">
+        @if (String.IsNullOrEmpty(Model.ImagePath))
+        {
+            <form action="" method="post" enctype="multipart/form-data" id="firstImageUpload">
+                <center>
+                    <label class="fileUpload">
+                        <input type="file" name="file" id="firstImageUploadFile" />
+                        <span class="glyphicon glyphicon-upload" style="font-size: 3em; color: #208fb2;"></span>
+                    </label>
+                </center>
+            </form>
+        }
+        else
+        {
+            <img src="@Url.Content("~/Content/Images/" + System.IO.Path.GetFileName(Model.ImagePath))"/>
+            @*<img src="@Url.Content("~/App_Data/Andro.png")" />*@
+        }
+    </div>
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>

@@ -12,6 +12,7 @@ namespace FurnitureProject.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+        public string ImagePath { get; set; }
     }
 
     public class ManageLoginsViewModel
@@ -39,6 +40,10 @@ namespace FurnitureProject.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeAvatarViewModel
+    {
+        public string ImagePath { get; set; }
+    }
     public class ChangePasswordViewModel
     {
         [Required]

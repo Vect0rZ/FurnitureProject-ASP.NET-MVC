@@ -177,6 +177,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Managers\FileManager.cs" />
+    <Compile Include="Common\Managers\IFileManager.cs" />
     <Compile Include="Common\Services\CustomerProducts.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Common\Services\OrderService\OrderAndProducts.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="Common\Services\ProductInfo.cs" />
     <Compile Include="Common\Services\ProductService.cs" />
     <Compile Include="Common\Services\ProductWithQuantity.cs" />
+    <Compile Include="Common\UserManagerExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -197,6 +200,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508260930262_ImagePath.cs" />
+    <Compile Include="Migrations\201508260930262_ImagePath.Designer.cs">
+      <DependentUpon>201508260930262_ImagePath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CustomerIndexVM.cs" />
     <Compile Include="Common\Customer.cs">
@@ -320,7 +328,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\Uploads\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -333,6 +342,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508260930262_ImagePath.resx">
+      <DependentUpon>201508260930262_ImagePath.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
