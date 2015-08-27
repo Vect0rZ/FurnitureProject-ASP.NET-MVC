@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Search order by ID</h2>
+<h2>Enter order number</h2>
 @using (Html.BeginForm("SearchOrderIndex", "Orders", FormMethod.Get))
 {
     <div class="form-group">
@@ -15,65 +15,71 @@
 }
 <br />
 
-<table class="table">
-    <tr>
-        <td colspan="2">
-            <b>MOL</b>
-        </td>
-        <td colspan="2">
-            <b>Order Date</b>
-        </td>
-        <td>
-            <b>Total order price</b>
-        </td>
-    </tr>
-@if (Model.OrderAndProducts.Order.Customer != null)
+<h2>@Model.Message</h2>
+@ShowData()
+
+@helper ShowData()
 {
-    <tr>
-        <td colspan="2">
-            @Model.OrderAndProducts.Order.Customer.MOL
-        </td>
-        <td colspan="2">
-            @Model.OrderAndProducts.Order.Order.Date
-        </td>
-        <td>
-            @Model.OrderAndProducts.Order.TotalPrice
-        </td>
-    </tr>
+    <table class="table">
+        <tr>
+            <td colspan="2">
+                <b>MOL</b>
+            </td>
+            <td colspan="2">
+                <b>Order Date</b>
+            </td>
+            <td>
+                <b>Total order price</b>
+            </td>
+        </tr>
+        @if (Model.OrderAndProducts.Order.Customer != null)
+        {
+            <tr>
+                <td colspan="2">
+                    @Model.OrderAndProducts.Order.Customer.MOL
+                </td>
+                <td colspan="2">
+                    @Model.OrderAndProducts.Order.Order.Date
+                </td>
+                <td>
+                    @Model.OrderAndProducts.Order.TotalPrice
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5">
+                <center>
+                    <p style="font-size: 2em">Ordered items</p>
+                </center>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Item name</b>
+            </td>
+            <td>
+                <b>Item price</b>
+            </td>
+            <td>
+                <b>Item weight</b>
+            </td>
+            <td>
+                <b>Quantity</b>
+            </td>
+            <td>
+                <b>Total Price</b>
+            </td>
+        </tr>
+        @foreach (var item in Model.OrderAndProducts.Products)
+        {
+            <tr class="trlink">
+                <td>@item.Product.Name</td>
+                <td>@item.Product.Price</td>
+                <td>@item.Product.Weight</td>
+                <td>@item.Quantity</td>
+                <td>@item.TotalPrice</td>
+            </tr>
+        }
+    </table>
 }
-    <tr>
-        <td colspan="5">
-            <center>
-                <p style="font-size: 2em">Ordered items</p>
-            </center>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <b>Item name</b>
-        </td>
-        <td>
-            <b>Item price</b>
-        </td>
-        <td>
-            <b>Item weight</b>
-        </td>
-        <td>
-            <b>Quantity</b>
-        </td>
-        <td>
-            <b>Total Price</b>
-        </td>
-    </tr>
-@foreach (var item in Model.OrderAndProducts.Products)
-{
-    <tr class="trlink">
-        <td>@item.Product.Name</td>
-        <td>@item.Product.Price</td>
-        <td>@item.Product.Weight</td>
-        <td>@item.Quantity</td>
-        <td>@item.TotalPrice</td>
-    </tr>
-}
-</table>
  

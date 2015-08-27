@@ -14,6 +14,7 @@ namespace FurnitureProject.Models
     {
         public OrderAndProducts OrderAndProducts { get; set; }
         public int? OrderID { get; set; }
+        public string Message { get; set; }
         public OrdersSearchOrderVM()
         {
             OrderAndProducts = new OrderAndProducts();

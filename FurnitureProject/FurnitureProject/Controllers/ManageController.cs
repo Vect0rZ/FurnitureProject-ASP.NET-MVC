@@ -65,7 +65,8 @@ namespace FurnitureProject.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AvatarFormatError ? "Invalid avatar format"
+                : message == ManageMessageId.AvatarFormatError ? "Invalid avatar format."
+                : message == ManageMessageId.AvatarSizeError ? "Avatar could not be larger than 5mb."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.AvatarChangeSuccess ? "Your avatar was successfuly set"
@@ -95,19 +96,19 @@ namespace FurnitureProject.Controllers
             bool success = false;
             string imagePath = string.Empty;
 
-            if(String.IsNullOrEmpty(currentImagePath) == false)
-            {
-                FileManager fileManager = new FileManager();
-                fileManager.DeleteFile(currentImagePath);
-            }
-
             if (file != null && file.ContentLength > 0)
             {
                 imagePath = new FileManager().Save(file);
 
-                if(String.IsNullOrEmpty(imagePath))
+                if(String.IsNullOrWhiteSpace(imagePath))
                 {
                     return RedirectToAction("Index", new { Message = ManageMessageId.AvatarFormatError });
+                }
+
+                if (String.IsNullOrEmpty(currentImagePath) == false)
+                {
+                    FileManager fileManager = new FileManager();
+                    fileManager.DeleteFile(currentImagePath);
                 }
 
                 success = UserManager.ChangeUserAvatar(User.Identity.GetUserId(), imagePath);
@@ -344,6 +345,7 @@ namespace FurnitureProject.Controllers
         public ActionResult SetAvatar(IndexViewModel model, HttpPostedFileBase file)
         {
             bool success = false;
+
             if(file.ContentLength > 0 && file != null)
             {
                 var user = UserManager.FindById(User.Identity.GetUserId());
@@ -469,6 +471,7 @@ namespace FurnitureProject.Controllers
             AvatarChangeSuccess,
             AvatarRemoveSuccess,
             AvatarFormatError,
+            AvatarSizeError,
             Error
         }
 

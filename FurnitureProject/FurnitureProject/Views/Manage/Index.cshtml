@@ -11,16 +11,24 @@
         $(document).ready(function()
         {
             $("#firstImageUploadFile").change(function () {
+                alert(this.files[0].size);
                 $("#firstImageUpload").submit();
             });
 
             $("#ImageChangeFile").change(function () {
-                $("#ImageChange").submit();
+                if (this.files[0].size > 5000000)
+                {
+                    $("#textSuccess").text("The file cannot be larger than 5mb.");
+                }
+                else
+                {
+                    $("#ImageChange").submit();
+                }
             });
         })
     </script>
 }
-
+<p class="text-success" style="font-size: 2em;" id="textSuccess"></p>
 <p class="text-success" style="font-size: 2em;">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>

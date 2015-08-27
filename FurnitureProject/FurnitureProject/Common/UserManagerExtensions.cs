@@ -62,6 +62,8 @@ namespace FurnitureProject.Common
             {
                 user.ImagePath = string.Empty;
 
+                context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+
                 if (context.SaveChanges() > 0)
                 {
                     return true;
