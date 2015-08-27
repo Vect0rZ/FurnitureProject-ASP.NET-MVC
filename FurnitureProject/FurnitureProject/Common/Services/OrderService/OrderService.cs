@@ -82,7 +82,10 @@ namespace FurnitureProject.Common.Services.OrderService
                                                          .ToList()
                                 })
                                 .FirstOrDefault();
-
+            if(resultOrder == null)
+            {
+                resultOrder = new OrderAndProducts();
+            }
             return resultOrder;
         }
 

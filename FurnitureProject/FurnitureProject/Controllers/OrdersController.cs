@@ -35,10 +35,21 @@ namespace FurnitureProject.Controllers
 
         public ActionResult SearchOrderIndex(OrdersSearchOrderVM model)
         {
+            if(model.OrderID.HasValue == false)
+            {
+                model.Message = "Please enter valid id";
+            }
+
             if(model.OrderID != null)
             {
                 model.OrderAndProducts = OrderService.GetOrderAndProducts(model.OrderID);
+
+                if(model.OrderAndProducts.Products.Count == 0)
+                {
+                    model.Message = "Could not find such order.";
+                }
             }
+
             return View(model);
         }
 

@@ -14,14 +14,17 @@ namespace FurnitureProject.Common
         {
             using(ApplicationDbContext context = new ApplicationDbContext())
             {
-                var User = context.Users.FirstOrDefault(u => u.Id == UserID);
+                var User = UserManager.GetUser(UserID);
 
                 User.ImagePath = ImagePath;
+
+                context.Entry(User).State = System.Data.Entity.EntityState.Modified;
 
                 if(context.SaveChanges() > 0)
                 {
                     return true;
                 }
+
                 return false;
             }
         }
@@ -50,6 +53,24 @@ namespace FurnitureProject.Common
             }
 
             return imagePath;
+        }
+
+        public static bool RemoveAvatar(this ApplicationUserManager UserManager, string UserID)
+        {
+            var user = UserManager.GetUser(UserID);
+            using(ApplicationDbContext context = new ApplicationDbContext())
+            {
+                user.ImagePath = string.Empty;
+
+                context.Entry(user).State = System.Data.Entity.EntityState.Modified;
+
+                if (context.SaveChanges() > 0)
+                {
+                    return true;
+                }
+
+                return false;
+            }
         }
     }
 }

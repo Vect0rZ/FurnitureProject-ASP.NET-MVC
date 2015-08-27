@@ -37,17 +37,21 @@ namespace FurnitureProject.Common.Services
         /// <returns>Returns OperationResult containing <see cref="CustomerProducts"/> if any. </returns>
         public OperationResult<CustomerProducts> GetProductsForCustomer(string searchString)
         {
+            
             if (searchString.IsEmpty())
             {
-                return new OperationResult<CustomerProducts>("Please specifiy search criteria");
+                return new OperationResult<CustomerProducts>("Please specifiy search criteria", new CustomerProducts());
             }
 
             var customers = context.Customers.Where(c => c.MOL.Contains(searchString))
                                              .ToList();
-
+            if(customers.Count() <= 0)
+            {
+                return new OperationResult<CustomerProducts>("No such user found", new CustomerProducts());
+            }
             if (customers != null && customers.Count() > 1)
             {
-                return new OperationResult<CustomerProducts>("More than one user with this name exists. Please specify different search criteria");
+                return new OperationResult<CustomerProducts>("More than one user with this name exists. Please specify different search criteria", new CustomerProducts());
             }
 
 
@@ -66,7 +70,7 @@ namespace FurnitureProject.Common.Services
                                                 .ToList();
             if (resultProducts == null)
             {
-                return new OperationResult<CustomerProducts>("The customer has no orders");
+                return new OperationResult<CustomerProducts>("The customer has no orders", new CustomerProducts());
             }
 
             return new OperationResult<CustomerProducts>(new CustomerProducts()
@@ -97,6 +101,7 @@ namespace FurnitureProject.Common.Services
                 Success = false;
                 Error = error;
             }
+
         }
 
         public class OperationResult<T> : OperationResult
@@ -108,9 +113,9 @@ namespace FurnitureProject.Common.Services
                 
             }
 
-            public OperationResult(string error) : base(error)
+            public OperationResult(string error, T data) : base(error)
             {
-
+                Data = data;
             }
 
             public OperationResult(T data)
