@@ -282,6 +282,7 @@
       <LastGenOutput>FurnitureFactoryModel.cs</LastGenOutput>
     </Content>
     <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\MyServer.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -337,8 +338,8 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Customers\AddCustomer.cshtml" />
     <Content Include="Views\Products\AddProduct.cshtml" />
-    <Content Include="Views\Customers\EditCustomer.cshtml" />
-    <Content Include="Views\Products\EditProduct.cshtml" />
+    <Content Include="Views\Customers\EditCustomerGet.cshtml" />
+    <Content Include="Views\Products\EditProductGet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />

@@ -65,15 +65,21 @@
             @item.SoldLastMonth
         </td>
         <td>
-            @using (Html.BeginForm("EditProduct", "Products", new { prodId = item.Product.ID }, FormMethod.Post))
+            @if (User.Identity.IsAuthenticated == true)
             {
-                <input type="submit" class="btn-link" value="Edit"/>
+                using (Html.BeginForm("EditProductGet", "Products", new { ProductID = item.Product.ID }, FormMethod.Post))
+                {
+                    <input type="submit" class="btn-link" value="Edit" />
+                }
             }
         </td>
         <td>
-            @using (Html.BeginForm("DeleteProduct", "Products", new { productId = item.Product.ID }, FormMethod.Post))
+            @if (User.Identity.IsAuthenticated == true)
             {
-                <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')" />
+                using (Html.BeginForm("DeleteProduct", "Products", new { productId = item.Product.ID }, FormMethod.Post))
+                {
+                    <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')" />
+                }
             }
         </td>
 

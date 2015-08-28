@@ -123,21 +123,14 @@ namespace FurnitureProject.Common.Services
             return result;
         }
 
-        public AddCustomerViewModel GetCustomerViewModel(int customerId)
+        public AddCustomerViewModel GetCustomerViewModel(int customerId, string errorMessage = null)
         {
             AddCustomerViewModel result = null;
             Customer customer = GetCustomerByID(customerId);
 
             if(customer != null)
             {
-                result = new AddCustomerViewModel()
-                {
-                    CustomerID = customer.ID,
-                    Bulstat = customer.Bulstat,
-                    Name = customer.Name,
-                    MOL = customer.MOL,
-                    Address = customer.Address
-                };
+                result = new AddCustomerViewModel(customer, errorMessage);
             }
 
             return result;
@@ -189,7 +182,7 @@ namespace FurnitureProject.Common.Services
             {
                 result = true;
             }
-            if(existingCustomer.ID == excludeId)
+            if(existingCustomer != null && excludeId != null && existingCustomer.ID == excludeId)
             {
                 result = false;
             }

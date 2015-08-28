@@ -70,15 +70,21 @@
             @Html.ActionLink("Orders", "Index", "Orders", new { CustomerID = item.ID }, null)
         </td>
         <td>
-            @using (Html.BeginForm("EditCustomer", "Customers", new { custId = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+            @if (User.Identity.IsAuthenticated == true)
             {
-                <input type="submit" class="btn-link" value="Edit"/>
+                using (Html.BeginForm("EditCustomerGet", "Customers", new { CustomerID = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+                {
+                    <input type="submit" class="btn-link" value="Edit" />
+                }
             }
         </td>
         <td>
-            @using (Html.BeginForm("DeleteCustomer", "Customers", new { customerId = item.ID }, FormMethod.Post, new { id = "DeleteForm"}))
+            @if (User.Identity.IsAuthenticated == true)
             {
-                <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')"/>
+                using (Html.BeginForm("DeleteCustomer", "Customers", new { customerId = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+                {
+                    <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')" />
+                }
             }
         </td>
     </tr>

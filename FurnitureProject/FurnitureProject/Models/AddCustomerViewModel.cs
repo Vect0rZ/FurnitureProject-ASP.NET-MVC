@@ -5,11 +5,13 @@ using System.Web;
 
 using System.ComponentModel.DataAnnotations;
 
+using FurnitureProject.Common;
+
 namespace FurnitureProject.Models
 {
     public class AddCustomerViewModel : BaseViewModel
     {
-        public int CustomerID { get; set; }
+        public int? CustomerID { get; set; }
 
         [Required]
         [Display(Name="Bulstat")]
@@ -30,5 +32,24 @@ namespace FurnitureProject.Models
         [Display(Name="Address")]
         [DataType(DataType.Text, ErrorMessage = "Invalid address input.")]
         public string Address { get; set; }
+
+        public AddCustomerViewModel()
+        {
+
+        }
+
+        public AddCustomerViewModel(Customer customer, string errorMessage = null)
+        {
+            CustomerID = customer.ID;
+            Bulstat = customer.Bulstat;
+            Name = customer.Name;
+            MOL = customer.MOL;
+            Address = customer.Address;
+
+            if(errorMessage != null)
+            {
+                ErrorMessage = errorMessage;
+            }
+        }
     }
 }

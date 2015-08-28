@@ -5,11 +5,13 @@ using System.Web;
 
 using System.ComponentModel.DataAnnotations;
 
+using FurnitureProject.Common;
+
 namespace FurnitureProject.Models
 {
     public class AddProductViewModel : BaseViewModel
     {
-        public int ProductID { get; set; }
+        public int? ProductID { get; set; }
 
         [Required]
         [Display(Name="Barcode")]
@@ -36,5 +38,24 @@ namespace FurnitureProject.Models
         [Range(0, float.MaxValue, ErrorMessage = "Invalid price input.")]
         public float Price { get; set; }
 
+        public AddProductViewModel ()
+	    {
+
+	    }
+
+        public AddProductViewModel(Product product, string errorMessage = null)
+        {
+            ProductID = product.ID;
+            Barcode = product.Barcode.Value;
+            Name = product.Name;
+            Description = product.Description;
+            Weight = product.Weight;
+            Price = product.Price;
+
+            if(errorMessage != null)
+            {
+                ErrorMessage = errorMessage;
+            }
+        }
     }
 }

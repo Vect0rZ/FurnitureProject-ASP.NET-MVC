@@ -42,31 +42,35 @@ namespace FurnitureProject.Controllers
             return View(product);
         }
 
-        public ActionResult EditProduct(int? prodId, AddProductViewModel model)
+
+        public ActionResult EditProductGet(AddProductViewModel model)
         {
-
-            if(prodId.HasValue == true)
+            if(model.ProductID.HasValue == true)
             {
-                model = ProductService.GetProductViewModel(prodId.Value);
-            }
-
-            if(ModelState.IsValid == false)
-            {
-                return View(model);
-            }
-
-            if(prodId.HasValue == false)
-            {
-                var result = ProductService.EditProduct(model);
-                if(result.Success == true)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                model.ErrorMessage = result.ErrorMessage;
+                model = ProductService.GetProductViewModel(model.ProductID.Value, model.ErrorMessage);
             }
 
             return View(model);
+        }
+
+
+        public ActionResult EditProductPost(AddProductViewModel model)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return RedirectToAction("EditProductGet", model);
+            }
+
+            var result = ProductService.EditProduct(model);
+
+            if(result.Success == true)
+            {
+                return RedirectToAction("Index");
+            }
+
+            model.ErrorMessage = result.ErrorMessage;
+            
+            return RedirectToAction("EditProductGet", model);
         }
 
         [Authorize]

@@ -185,22 +185,14 @@ namespace FurnitureProject.Common.Services
             return result;
         }
 
-        public AddProductViewModel GetProductViewModel(int prodId)
+        public AddProductViewModel GetProductViewModel(int prodId, string errorMessage = null)
         {
             AddProductViewModel result = null;
             Product product = GetByID(prodId);
 
             if(product != null)
             {
-                result = new AddProductViewModel()
-                {
-                    ProductID = product.ID,
-                    Barcode = product.Barcode.Value,
-                    Name = product.Name,
-                    Description = product.Description,
-                    Weight = product.Weight,
-                    Price = product.Price
-                };
+                result = new AddProductViewModel(product, errorMessage);
             }
 
             return result;
@@ -208,7 +200,7 @@ namespace FurnitureProject.Common.Services
 
         public EntityTaskResult<Product> EditProduct(AddProductViewModel model)
         {
-            Product product = GetByID(model.ProductID);
+            Product product = GetByID(model.ProductID.Value);
 
             if(product == null)
             {
@@ -258,7 +250,7 @@ namespace FurnitureProject.Common.Services
                 result = true;
             }
 
-            if (existingProduct.ID == excludeId)
+            if (existingProduct != null && excludeId != null && existingProduct.ID == excludeId)
             {
                 result = false;
             }

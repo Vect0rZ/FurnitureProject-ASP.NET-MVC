@@ -45,33 +45,35 @@ namespace FurnitureProject.Controllers
             return View(customer);
         }
 
-        [Authorize]
-        [HttpPost]
-        public ActionResult EditCustomer(int? custId, AddCustomerViewModel model)
+
+        public ActionResult EditCustomerGet(AddCustomerViewModel model)
         {
-            if(custId.HasValue == true) // So we come from the customer page
+            if(model.CustomerID.HasValue == true)
             {
-                model = CustomerService.GetCustomerViewModel(custId.Value);
-            }
-
-            if (ModelState.IsValid == false)
-            {
-                return View(model);
-            }
-
-            if(custId.HasValue == false) // Else we come from the customer Edit page with the newely edited model
-            {
-                var result = CustomerService.EditCustomer(model);
-
-                if(result.Success == true)
-                {
-                    return RedirectToAction("Index");
-                }
-
-                model.ErrorMessage = result.ErrorMessage;
+                model = CustomerService.GetCustomerViewModel(model.CustomerID.Value, model.ErrorMessage);
             }
 
             return View(model);
+        }
+
+        
+        public ActionResult EditCustomerPost(AddCustomerViewModel model)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return RedirectToAction("EditCustomerGet", model);
+            }
+
+            var result = CustomerService.EditCustomer(model);
+
+            if(result.Success == true)
+            {
+                return RedirectToAction("Index");
+            }
+
+            model.ErrorMessage = result.ErrorMessage;
+
+            return RedirectToAction("EditCustomerGet", model);
         }
 
         [Authorize]
