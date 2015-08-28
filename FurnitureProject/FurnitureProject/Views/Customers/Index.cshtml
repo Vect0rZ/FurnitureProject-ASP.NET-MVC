@@ -9,10 +9,11 @@
 }
 
 <p>
-    Items per page: @Html.ActionLink("25", "Index", new { RowsPerPage = 25, PageNumber = 0  }) |
-                    @Html.ActionLink("50", "Index", new { RowsPerPage = 50, PageNumber = 0  }) |
+    Items per page: @Html.ActionLink("25", "Index", new { RowsPerPage = 25, PageNumber = 0  })  |
+                    @Html.ActionLink("50", "Index", new { RowsPerPage = 50, PageNumber = 0  })  |
                     @Html.ActionLink("100", "Index", new { RowsPerPage = 100, PageNumber = 0 }) |
 </p>
+
 <ul class="pagination pagination-sm">
 @for (int i = 0; i <= Model.NumberOfPages; i++ )
 {
@@ -21,6 +22,7 @@
      </li>
 }
 </ul>
+<p>@Html.ActionLink("Add new customer", "AddCustomer", "Customers", null, new { @class = "btn btn-info" })</p>
 <table class="table">
     <tr>
         <td>
@@ -41,6 +43,8 @@
         <th>
             Orders
         </th>
+        <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model.Customers)
@@ -64,6 +68,24 @@
         </td>
         <td>
             @Html.ActionLink("Orders", "Index", "Orders", new { CustomerID = item.ID }, null)
+        </td>
+        <td>
+            @if (User.Identity.IsAuthenticated == true)
+            {
+                using (Html.BeginForm("EditCustomerGet", "Customers", new { CustomerID = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+                {
+                    <input type="submit" class="btn-link" value="Edit" />
+                }
+            }
+        </td>
+        <td>
+            @if (User.Identity.IsAuthenticated == true)
+            {
+                using (Html.BeginForm("DeleteCustomer", "Customers", new { customerId = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+                {
+                    <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')" />
+                }
+            }
         </td>
     </tr>
 }

@@ -59,7 +59,6 @@ C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.Ado.dl
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\bin\Glimpse.EF6.dll
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.Migrations.ImagePath.resources
 C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csproj.GenerateResource.Cache
-C:\GitRepo\FurnitureProject\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache
 D:\_Projects\Kristian\FurnitureProject\FurnitureProject\obj\Debug\FurnitureProject.csprojResolveAssemblyReference.cache
 D:\_Projects\Kristian\FurnitureProject\FurnitureProject\bin\FurnitureProject.dll.config
 D:\_Projects\Kristian\FurnitureProject\FurnitureProject\bin\FurnitureProject.dll

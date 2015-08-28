@@ -133,7 +133,7 @@ namespace FurnitureProject.Common.Services
         public static bool IsEmpty(this string str)
         {
             //ML: better use IsNullOrWhitespace, in this case you don't need to trim it. Otherwise the user will enter one space and this function will return false.
-            return String.IsNullOrEmpty(str);
+            return String.IsNullOrWhiteSpace(str);
         }
        
     }

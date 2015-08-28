@@ -180,8 +180,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\Helpers\EntityTaskResult.cs" />
+    <Compile Include="Common\Managers\CustomerManager.cs" />
     <Compile Include="Common\Managers\FileManager.cs" />
     <Compile Include="Common\Managers\IFileManager.cs" />
+    <Compile Include="Common\Managers\ProductManager.cs" />
     <Compile Include="Common\Services\CustomerProducts.cs" />
     <Compile Include="Common\Services\CustomerService.cs" />
     <Compile Include="Common\Services\OrderService\OrderAndProducts.cs" />
@@ -209,6 +212,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddCustomerViewModel.cs" />
+    <Compile Include="Models\AddProductViewModel.cs" />
+    <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\CustomerIndexVM.cs" />
     <Compile Include="Common\Customer.cs">
       <DependentUpon>FurnitureFactoryModel.tt</DependentUpon>
@@ -276,6 +282,7 @@
       <LastGenOutput>FurnitureFactoryModel.cs</LastGenOutput>
     </Content>
     <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\MyServer.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -329,6 +336,10 @@
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Customers\AddCustomer.cshtml" />
+    <Content Include="Views\Products\AddProduct.cshtml" />
+    <Content Include="Views\Customers\EditCustomerGet.cshtml" />
+    <Content Include="Views\Products\EditProductGet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Uploads\" />
