@@ -122,9 +122,65 @@ namespace FurnitureProject.Common.Services
 
             return result;
         }
+
+        public AddCustomerViewModel GetCustomerViewModel(int customerId)
+        {
+            AddCustomerViewModel result = null;
+            Customer customer = GetCustomerByID(customerId);
+
+            if(customer != null)
+            {
+                result = new AddCustomerViewModel()
+                {
+                    CustomerID = customer.ID,
+                    Bulstat = customer.Bulstat,
+                    Name = customer.Name,
+                    MOL = customer.MOL,
+                    Address = customer.Address
+                };
+            }
+
+            return result;
+        }
+
+        public EntityTaskResult<Customer> EditCustomer(AddCustomerViewModel model)
+        {
+            Customer result = GetCustomerByID(model.CustomerID);
+
+            if(result == null)
+            {
+                return new EntityTaskResult<Customer>().SetErrorMessage("No such user found.")
+                                                       .SetSuccess(false);
+            }
+
+            result.Bulstat = model.Bulstat;
+            result.Name = model.Name;
+            result.MOL = model.MOL;
+            result.Address = model.Address;
+
+            if(CheckForDuplicateBulstat(result, result.ID) == true)
+            {
+                return new EntityTaskResult<Customer>().SetErrorMessage("Bulstat already exists")
+                                                       .SetSuccess(false);
+            }
+
+            context.Customers.Attach(result);
+            context.Entry(result).State = System.Data.Entity.EntityState.Modified;
+
+            int changes = context.SaveChanges();
+
+            if(changes > 0)
+            {
+                return new EntityTaskResult<Customer>().SetData(result).SetSuccess(true);
+            }
+
+            return new EntityTaskResult<Customer>().SetErrorMessage("Something went wrong")
+                                                   .SetSuccess(false);
+            
+        }
         #region private methods
 
-        private bool CheckForDuplicateBulstat(Customer customer)
+        private bool CheckForDuplicateBulstat(Customer customer, int? excludeId = null)
         {
             bool result = false;
             Customer existingCustomer = context.Customers.FirstOrDefault(c => c.Bulstat == customer.Bulstat);
@@ -133,7 +189,10 @@ namespace FurnitureProject.Common.Services
             {
                 result = true;
             }
-
+            if(existingCustomer.ID == excludeId)
+            {
+                result = false;
+            }
             return result;
         }
 

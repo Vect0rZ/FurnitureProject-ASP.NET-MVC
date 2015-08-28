@@ -9,6 +9,8 @@ namespace FurnitureProject.Models
 {
     public class AddCustomerViewModel : BaseViewModel
     {
+        public int CustomerID { get; set; }
+
         [Required]
         [Display(Name="Bulstat")]
         [Range(0, Int32.MaxValue, ErrorMessage="Invalid bulstat")]

@@ -42,6 +42,33 @@ namespace FurnitureProject.Controllers
             return View(product);
         }
 
+        public ActionResult EditProduct(int? prodId, AddProductViewModel model)
+        {
+
+            if(prodId.HasValue == true)
+            {
+                model = ProductService.GetProductViewModel(prodId.Value);
+            }
+
+            if(ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            if(prodId.HasValue == false)
+            {
+                var result = ProductService.EditProduct(model);
+                if(result.Success == true)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                model.ErrorMessage = result.ErrorMessage;
+            }
+
+            return View(model);
+        }
+
         [Authorize]
         [HttpPost]
         public ActionResult DeleteProduct(int? productId)

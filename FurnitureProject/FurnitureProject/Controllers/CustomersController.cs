@@ -47,6 +47,35 @@ namespace FurnitureProject.Controllers
 
         [Authorize]
         [HttpPost]
+        public ActionResult EditCustomer(int? custId, AddCustomerViewModel model)
+        {
+            if(custId.HasValue == true) // So we come from the customer page
+            {
+                model = CustomerService.GetCustomerViewModel(custId.Value);
+            }
+
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            if(custId.HasValue == false) // Else we come from the customer Edit page with the newely edited model
+            {
+                var result = CustomerService.EditCustomer(model);
+
+                if(result.Success == true)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                model.ErrorMessage = result.ErrorMessage;
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
         public ActionResult DeleteCustomer(int? customerId)
         {
             if(CustomerService.DeleteCustomer(customerId))

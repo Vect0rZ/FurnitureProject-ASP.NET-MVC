@@ -44,6 +44,7 @@
             Orders
         </th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model.Customers)
@@ -69,11 +70,16 @@
             @Html.ActionLink("Orders", "Index", "Orders", new { CustomerID = item.ID }, null)
         </td>
         <td>
+            @using (Html.BeginForm("EditCustomer", "Customers", new { custId = item.ID }, FormMethod.Post, new { id = "DeleteForm" }))
+            {
+                <input type="submit" class="btn-link" value="Edit"/>
+            }
+        </td>
+        <td>
             @using (Html.BeginForm("DeleteCustomer", "Customers", new { customerId = item.ID }, FormMethod.Post, new { id = "DeleteForm"}))
             {
                 <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')"/>
             }
-            @*@Html.ActionLink("Delete", "DeleteCustomer", new {customerId = item.ID}, new { onclick = "UserPrompt()"})*@
         </td>
     </tr>
 }

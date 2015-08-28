@@ -1,0 +1,63 @@
+﻿@using FurnitureProject.Common;
+@model AddProductViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (String.IsNullOrWhiteSpace(Model.ErrorMessage) == false)
+{
+    <center><h2 class="text-warning">@Model.ErrorMessage</h2></center>
+}
+<h2>Edit product</h2>
+@ShowFields()
+
+@helper ShowFields()
+{
+    using (Html.BeginForm("EditProduct", "Products", new { ProductID = Model.ProductID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(barcode => Model.Barcode)
+            <div class="col">
+                @Html.TextBoxFor(barcode => Model.Barcode, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(name => Model.Name)
+            <div class="col">
+                @Html.TextBoxFor(name => Model.Name, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(description => Model.Description)
+            <div class="col">
+                @Html.TextBoxFor(description => Model.Description, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(weight => Model.Weight)
+            <div class="col">
+                @Html.TextBoxFor(weight => Model.Weight, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(price => Model.Price)
+            <div class="col">
+                @Html.TextBoxFor(price => Model.Price, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-success" value="Edit Product" />
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

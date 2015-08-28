@@ -9,6 +9,8 @@ namespace FurnitureProject.Models
 {
     public class AddProductViewModel : BaseViewModel
     {
+        public int ProductID { get; set; }
+
         [Required]
         [Display(Name="Barcode")]
         [Range(0, Int32.MaxValue, ErrorMessage="Invalid barcode input.")]

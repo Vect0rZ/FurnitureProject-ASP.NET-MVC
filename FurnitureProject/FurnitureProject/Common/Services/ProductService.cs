@@ -36,6 +36,10 @@ namespace FurnitureProject.Common.Services
             return context.Products;
         }
 
+        public Product GetByID(int productId)
+        {
+            return GetAll().FirstOrDefault(p => p.ID == productId);
+        }
         public IQueryable<Product> GetAllById(int productID)
         {
             var resultProduts = GetAll().Where(p => p.ID == productID);
@@ -181,11 +185,69 @@ namespace FurnitureProject.Common.Services
             return result;
         }
 
+        public AddProductViewModel GetProductViewModel(int prodId)
+        {
+            AddProductViewModel result = null;
+            Product product = GetByID(prodId);
+
+            if(product != null)
+            {
+                result = new AddProductViewModel()
+                {
+                    ProductID = product.ID,
+                    Barcode = product.Barcode.Value,
+                    Name = product.Name,
+                    Description = product.Description,
+                    Weight = product.Weight,
+                    Price = product.Price
+                };
+            }
+
+            return result;
+        }
+
+        public EntityTaskResult<Product> EditProduct(AddProductViewModel model)
+        {
+            Product product = GetByID(model.ProductID);
+
+            if(product == null)
+            {
+                return new EntityTaskResult<Product>().SetErrorMessage("Cannot find such product")
+                                                      .SetSuccess(false);
+            }
+
+            product.Barcode = model.Barcode;
+            product.Name = model.Name;
+            product.Description = model.Description;
+            product.Weight = model.Weight;
+            product.Price = model.Price;
+
+            if(CheckForDuplicateBarcode(product, product.ID) == true)
+            {
+                return new EntityTaskResult<Product>().SetErrorMessage("There is already a product with such barcode.")
+                                                      .SetSuccess(false);
+            }
+
+            context.Products.Attach(product);
+            context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+
+            int changes = context.SaveChanges();
+
+            if(changes > 0)
+            {
+                return new EntityTaskResult<Product>().SetData(product)
+                                                      .SetSuccess(true);
+            }
+
+            return new EntityTaskResult<Product>().SetErrorMessage("Something went wrong.")
+                                                  .SetSuccess(false);
+        }
+
         #endregion
 
         #region private methods
 
-        private bool CheckForDuplicateBarcode(Product product)
+        private bool CheckForDuplicateBarcode(Product product, int? excludeId = null)
         {
             bool result = false;
 
@@ -194,6 +256,11 @@ namespace FurnitureProject.Common.Services
             if(existingProduct != null)
             {
                 result = true;
+            }
+
+            if (existingProduct.ID == excludeId)
+            {
+                result = false;
             }
 
             return result;
