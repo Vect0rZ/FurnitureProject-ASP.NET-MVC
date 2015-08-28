@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using FurnitureProject.Common.Helpers;
+using FurnitureProject.Common.Managers;
+using FurnitureProject.Models;
+
 namespace FurnitureProject.Common.Services
 {
     /// <summary>
@@ -127,6 +131,73 @@ namespace FurnitureProject.Common.Services
                                                 .ToList();
         }
 
+        public EntityTaskResult<Product> AddProduct(AddProductViewModel product)
+        {
+            Product resultProduct = new Product()
+            {
+                Barcode = product.Barcode,
+                Name = product.Name,
+                Description = product.Description,
+                Weight = product.Weight,
+                Price = product.Price
+            };
+
+            if(ProductManager.ValidateProduct(resultProduct) == false)
+            {
+                return new EntityTaskResult<Product>().SetErrorMessage("Not a valid product")
+                                                      .SetSuccess(false);
+            }
+
+            if(CheckForDuplicateBarcode(resultProduct) == true)
+            {
+                return new EntityTaskResult<Product>().SetErrorMessage("There is already a product with this barcode.")
+                                                      .SetSuccess(false);
+            }
+            context.Products.Add(resultProduct);
+
+            if(context.SaveChanges() > 0)
+            {
+                return new EntityTaskResult<Product>().SetData(resultProduct).SetSuccess(true);
+            }
+
+            return new EntityTaskResult<Product>().SetErrorMessage("Something went wrong")
+                                                  .SetSuccess(false);
+        }
+
+        public bool DeleteProduct(int? productId)
+        {
+            bool result = false;
+
+            Product product = context.Products.FirstOrDefault(p => p.ID == productId);
+            context.Products.Remove(product);
+
+            int changes = context.SaveChanges();
+
+            if(changes > 0)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region private methods
+
+        private bool CheckForDuplicateBarcode(Product product)
+        {
+            bool result = false;
+
+            Product existingProduct = context.Products.FirstOrDefault(p => p.Barcode == product.Barcode);
+
+            if(existingProduct != null)
+            {
+                result = true;
+            }
+
+            return result;
+        }
         #endregion
     }
 }

@@ -17,6 +17,41 @@ namespace FurnitureProject.Controllers
             model.Products = products;
 
             return View(model);
+        
+        }
+
+        [Authorize]
+        public ActionResult AddProduct(AddProductViewModel product)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return View(product);
+            }
+
+            var result = ProductService.AddProduct(product);
+
+            if(result.Success == true)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                product.ErrorMessage = result.ErrorMessage;
+            }
+
+            return View(product);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteProduct(int? productId)
+        {
+            if(ProductService.DeleteProduct(productId) == true)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
         public ActionResult CustomerProducts()

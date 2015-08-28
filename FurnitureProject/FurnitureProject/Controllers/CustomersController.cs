@@ -14,6 +14,7 @@ namespace FurnitureProject.Controllers
 {
     public class CustomersController : BaseController
     {
+        [HttpGet]
         public ActionResult Index(CustomerIndexVM model)
         {
             model.PageNumber = CustomerService.ValidatePageNumber(model.PageNumber);
@@ -22,6 +23,38 @@ namespace FurnitureProject.Controllers
             model.Customers = CustomerService.GetAllOnPage(model.PageNumber, model.RowsPerPage);
 
             return View("Index", model);
+        }
+
+        [Authorize]
+        public ActionResult AddCustomer(AddCustomerViewModel customer)
+        {
+            if(ModelState.IsValid == false)
+            {
+                return View(customer);
+            }
+            var result = CustomerService.AddCustomer(customer);
+            if(result.Success == true)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                customer.ErrorMessage = result.ErrorMessage;
+            }
+
+            return View(customer);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteCustomer(int? customerId)
+        {
+            if(CustomerService.DeleteCustomer(customerId))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
 
     }

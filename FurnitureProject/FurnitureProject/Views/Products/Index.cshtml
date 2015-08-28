@@ -15,6 +15,7 @@
         <input type="submit" value="Search" />
     </p>
 }
+<p>@Html.ActionLink("Add new product", "AddProduct", "Products", null, new { @class = "btn btn-info" })</p>
 <table class="table">
     <tr>
         <th>
@@ -34,6 +35,9 @@
         </th>
         <th>
             Sold last month
+        </th>
+        <th>
+
         </th>
     </tr>
 
@@ -57,6 +61,13 @@
         <td>
             @item.SoldLastMonth
         </td>
+        <td>
+            @using (Html.BeginForm("DeleteProduct", "Products", new { productId = item.Product.ID }, FormMethod.Post))
+            {
+                <input type="submit" class="btn-link" value="Delete" onclick="return confirm('Are you sure?')" />
+            }
+        </td>
+
     </tr>
 }
 

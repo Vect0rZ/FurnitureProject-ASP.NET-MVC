@@ -1,0 +1,56 @@
+﻿@using FurnitureProject.Common;
+@model AddCustomerViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add new customer</h2>
+
+@if(String.IsNullOrWhiteSpace(Model.ErrorMessage) == false)
+{
+    <center><h2 class="text-warning">@Model.ErrorMessage</h2></center>
+}
+
+@using(Html.BeginForm("AddCustomer", "Customers", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    
+    <div class="form-group">
+        @Html.LabelFor(bulstat => Model.Bulstat)
+        <div class="col">
+            @Html.TextBoxFor(bulstat => Model.Bulstat, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(name => Model.Name)
+        <div class="col">
+            @Html.TextBoxFor(name => Model.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(MOL => Model.MOL)
+        <div class="col">
+            @Html.TextBoxFor(MOL => Model.MOL, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(address => Model.Address)
+        <div class="col">
+            @Html.TextBoxFor(address => Model.Address, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col">
+            <input type="submit" value="Add New" class="btn btn-success"/>
+        </div>
+    </div>
+}
+
+@helper DisplayFields()
+{
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -49,8 +49,10 @@ else
 @section JQuery
 {
     <script type="text/javascript">
+
         $(document).ready(function () {
-            $("#submitButton").click(function () {
+
+            $("#submitButton").click(function ajaxPost() {
                 $.ajax({
                     url: '/ProductHistory/Index/',
                     data:
@@ -60,12 +62,12 @@ else
                     datatype: 'text',
                     type: "GET",
                     success:
-                        function(result)
-                        {
+                        function (result) {
                             $("body").html(result)
                         }
-                })
+                });
             });
+
         });
     </script>
 }
